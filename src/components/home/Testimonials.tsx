@@ -195,7 +195,7 @@ export default function Testimonials() {
 
       {/* ===== MOBILE ===== */}
       <div className="lg:hidden">
-        <div className="flex flex-col gap-6 px-4">
+        <div className="flex flex-col gap-6 px-4 container">
           {/* Top: Header + Images Row */}
           <div className="flex flex-col gap-6">
             {/* Section Header */}
