@@ -1,5 +1,6 @@
 import Hero from "../components/home/Hero";
 import Testimonials from "../components/home/Testimonials";
+import WhyUs from "../components/home/WhyUs";
 
 export default function Home() {
   return (
@@ -12,13 +13,8 @@ export default function Home() {
       {/* Why Us Section */}
       <section
         id="why-us"
-        className="min-h-[40vh] flex items-center justify-center bg-white"
       >
-        <div className="container">
-          <h2 className="text-3xl font-bold text-[#00567E] text-center">
-            لماذا نحن
-          </h2>
-        </div>
+        <WhyUs />
       </section>
 
       {/* Destinations Section */}

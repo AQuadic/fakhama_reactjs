@@ -1,0 +1,83 @@
+const WhyUs = () => {
+    return (
+        <section className="container flex flex-wrap items-center justify-between gap-6 md:!py-17 py-8!">
+            <div>
+                <h2 className="text-[#505050] md:text-lg text-[10px] font-medium">
+                    لماذا نحن؟
+                </h2>
+
+                <h2 className="md:w-[500px] text-[#121212] md:text-[40px] text-lg font-semibold leading-[150%]">
+                    <span className="text-[#00567E]">شريكك الموثوق</span> لرحلات سياحية سلسة ومميزة !
+                </h2>
+
+                <p className="md:w-[500px] text-[#505050] md:text-xl text-xs font-medium leading-[150%] !mt-4">
+                    نتميز بخبرة طويلة في تنظيم الرحلات داخل وخارج البلاد، مع برامج متنوعة وأسعار تنافسية وخدمة عملاء 24/7. نهتم بكل تفاصيل رحلتك، من التخطيط وحجز الطيران والفنادق إلى تنظيم الأنشطة والرحلات، لنضمن لك تجربة سفر سلسة وممتعة.
+                </p>
+
+                <div className="flex md:gap-8 gap-[65px] !mt-10">
+                    <div className="flex flex-col">
+                        <p className="text-[#00567E] md:text-[48px] text-xl font-semibold leading-[150%]">+5000</p>
+                        <p className="text-[#505050] md:text-[32px] text-base font-medium">
+                            عميل راضٍ
+                        </p>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <p className="text-[#00567E] md:text-[48px] text-xl font-semibold leading-[150%]">+40</p>
+                        <p className="text-[#505050] md:text-[32px] text-base font-medium">
+                            وجهة مختلفة
+                        </p>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <p className="text-[#00567E] md:text-[48px] text-xl font-semibold leading-[150%]">+900</p>
+                        <p className="text-[#505050] md:text-[32px] text-base font-medium">
+                            رحلة مميزة
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="relative">
+                <img
+                    src="/images/why_us.png"
+                    alt="whu us"
+                />
+
+                <div className="md:w-[206px] w-[123px] md:h-[94px] h-[50px] border border-[#A8DAF1] rounded-[20px] absolute top-10 md:left-96 bg-[#FEFEFE] flex items-center justify-center gap-1">
+                    <img
+                        src="/images/star.gif"
+                        alt="star"
+                        className="md:w-14 w-6 md:h-14 h-6"
+                    />
+                    <div>
+                        <h2 className="text-[#00567E] md:text-[32px] text-base font-semibold">
+                            +2000
+                        </h2>
+                        <p className="text-[#121212] md:text-lg text-[10px] font-medium">
+                            تجارب مُوصى بها
+                        </p>
+                    </div>
+                </div>
+
+                <div className="md:w-[206px] w-[123px] md:h-[94px] h-[50px] border border-[#A8DAF1] rounded-[20px] absolute -bottom-10 md:right-96 right-56 bg-[#FEFEFE] flex items-center justify-center gap-1">
+                    <img
+                        src="/images/success.gif"
+                        alt="star"
+                        className="md:w-14 w-6 md:h-14 h-6"
+                    />
+                    <div>
+                        <h2 className="text-[#00567E] md:text-[32px] text-base font-semibold">
+                            +2000
+                        </h2>
+                        <p className="text-[#121212] md:text-lg text-[10px] font-medium">
+                            عميل راض
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
+}
+
+export default WhyUs
