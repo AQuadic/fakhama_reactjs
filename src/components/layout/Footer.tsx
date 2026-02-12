@@ -1,5 +1,5 @@
 import footerLogo from "../../assets/footer-logo.svg";
-import footerBg from "../../assets/footer-bg.png";
+import footerMapBg from "../../assets/footer-map-bg-6a9584.png";
 
 const FOOTER_LINKS = [
   { label: "الرئيسية", href: "#hero" },
@@ -95,9 +95,10 @@ export default function Footer() {
     <footer className="relative bg-[#0478AF] overflow-hidden">
       {/* Background Image (map overlay) */}
       <img
-        src={footerBg}
+        src={footerMapBg}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-soft-light pointer-events-none"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ opacity: 0.15 }}
         aria-hidden="true"
       />
 
