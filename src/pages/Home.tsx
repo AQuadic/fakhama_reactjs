@@ -1,16 +1,13 @@
+import Hero from "../components/home/Hero";
+
 export default function Home() {
   return (
     <div>
       {/* Hero Section */}
       <section
         id="hero"
-        className="min-h-[60vh] flex items-center justify-center"
       >
-        <div className="container">
-          <h1 className="text-4xl font-bold text-[#00567E] text-center">
-            مرحباً بكم في الفخامة للسياحة
-          </h1>
-        </div>
+        <Hero />
       </section>
 
       {/* Why Us Section */}
