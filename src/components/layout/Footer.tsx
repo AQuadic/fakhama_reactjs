@@ -92,7 +92,7 @@ function FacebookIcon() {
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#0478AF] overflow-hidden pb-8!">
+    <footer className="relative bg-[#0478AF] overflow-hidden pb-8!" dir="rtl">
       {/* Background Image (map overlay) */}
       <img
         src={footerMapBg}
@@ -116,7 +116,7 @@ export default function Footer() {
                   alt="الفخامة للسياحة"
                   className="w-[180px] h-[180px]"
                 />
-                <p className="text-white text-base font-semibold leading-none text-center max-w-[400px]">
+                <p className="text-white text-base font-semibold leading-none text-center max-w-[400px] !text-center">
                   شركة متخصصة بتقديم أفضل عروض السفر و أرقى الخدمات السياحية
                   بالإمارات.
                 </p>
@@ -142,7 +142,7 @@ export default function Footer() {
 
           {/* Subscribe Section */}
           <div className="flex flex-col items-center gap-4 w-[218px]">
-            <p className="text-sm font-semibold text-white text-center leading-none">
+            <p className="text-sm font-semibold text-white text-center leading-none !text-center">
               ابقَ على اطلاع بأحدث عروض السفر معنا
             </p>
             <div className="flex items-center gap-4">
@@ -190,7 +190,7 @@ export default function Footer() {
                     alt="الفخامة للسياحة"
                     className="w-[121px] h-[121px]"
                   />
-                  <p className="text-white text-[8px] font-semibold leading-none text-center -mt-4">
+                  <p className="text-white text-[8px] font-semibold leading-none text-center -mt-4 !text-center">
                     شركة متخصصة بتقديم أفضل عروض السفر و أرقى الخدمات السياحية
                     بالإمارات.
                   </p>
@@ -219,7 +219,7 @@ export default function Footer() {
 
             {/* Subscribe Section */}
             <div className="flex flex-col items-center gap-4 w-[218px]">
-              <p className="text-xs font-medium text-white text-center leading-none">
+              <p className="text-xs font-medium text-white text-center leading-none !text-center">
                 ابقَ على اطلاع بأحدث عروض السفر معنا
               </p>
               <div className="flex items-center gap-4">

@@ -1,12 +1,11 @@
 import Hero from "../components/home/Hero";
+import Testimonials from "../components/home/Testimonials";
 
 export default function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <section
-        id="hero"
-      >
+      <section id="hero">
         <Hero />
       </section>
 
@@ -47,15 +46,8 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section
-        id="testimonials"
-        className="min-h-[40vh] flex items-center justify-center"
-      >
-        <div className="container">
-          <h2 className="text-3xl font-bold text-[#00567E] text-center">
-            أراء العملاء
-          </h2>
-        </div>
+      <section id="testimonials" className="py-16 lg:py-24">
+        <Testimonials />
       </section>
 
       {/* How to Book Section */}
