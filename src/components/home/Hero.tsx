@@ -20,6 +20,13 @@ const Hero = () => {
                 <button className="md:w-[306px] w-full md:h-14 h-12 bg-[#0478AF] rounded-[50px] !mt-6 text-[#FEFEFE] text-lg font-semibold">
                     احجز الآن
                 </button>
+
+                <div className="md:block hidden absolute right-76 top-[480px]">
+                    <img
+                        src="/images/arrow.svg"
+                        alt="arrow"
+                    />
+                </div>
             </div>
 
             <div className="flex md:gap-8 gap-4">
