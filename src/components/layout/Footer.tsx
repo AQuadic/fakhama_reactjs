@@ -92,7 +92,7 @@ function FacebookIcon() {
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#0478AF] overflow-hidden">
+    <footer className="relative bg-[#0478AF] overflow-hidden pb-8!">
       {/* Background Image (map overlay) */}
       <img
         src={footerMapBg}
