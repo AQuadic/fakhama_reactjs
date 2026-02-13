@@ -1,3 +1,4 @@
+import Booking from "../components/home/Booking";
 import Hero from "../components/home/Hero";
 import Testimonials from "../components/home/Testimonials";
 import WhyUs from "../components/home/WhyUs";
@@ -49,13 +50,8 @@ export default function Home() {
       {/* How to Book Section */}
       <section
         id="how-to-book"
-        className="min-h-[40vh] flex items-center justify-center bg-white"
       >
-        <div className="container">
-          <h2 className="text-3xl font-bold text-[#00567E] text-center">
-            كيفية الحجز
-          </h2>
-        </div>
+        <Booking />
       </section>
     </div>
   );
