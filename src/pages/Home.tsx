@@ -1,4 +1,5 @@
 import Booking from "../components/home/Booking";
+import Destinations from "../components/home/Destinations";
 import Hero from "../components/home/Hero";
 import Testimonials from "../components/home/Testimonials";
 import WhyUs from "../components/home/WhyUs";
@@ -21,13 +22,8 @@ export default function Home() {
       {/* Destinations Section */}
       <section
         id="destinations"
-        className="min-h-[40vh] flex items-center justify-center"
       >
-        <div className="container">
-          <h2 className="text-3xl font-bold text-[#00567E] text-center">
-            الوجهات
-          </h2>
-        </div>
+        <Destinations />
       </section>
 
       {/* Programs Section */}
