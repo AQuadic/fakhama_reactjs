@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { motion } from "framer-motion";
 import Flag from "../icons/Flag";
 
 interface ArrowProps {
@@ -18,13 +19,7 @@ const NextArrow = (props: ArrowProps) => {
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-all"
             style={{ left: "-24px" }}
         >
-            <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path
                     d="M15 18L9 12L15 6"
                     stroke="#121212"
@@ -45,13 +40,7 @@ const PrevArrow = (props: ArrowProps) => {
             className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-all"
             style={{ right: "-24px" }}
         >
-            <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path
                     d="M9 18L15 12L9 6"
                     stroke="#121212"
@@ -99,6 +88,11 @@ const Destinations: React.FC = () => {
         { name: "دبي", image: "/images/dubai.jpg" },
     ];
 
+    const fadeInUp = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+    };
+
     return (
         <section className="container py-8! md:py-16!">
             <p className="text-[#505050] text-[10px] md:text-lg font-medium">
@@ -113,7 +107,14 @@ const Destinations: React.FC = () => {
             <div className="slider-container mt-6! md:mt-12! relative px-6! md:px-12!">
                 <Slider {...settings}>
                     {destinations.map((dest, index) => (
-                        <div key={index} className="px-2! md:px-3!">
+                        <motion.div
+                            key={index}
+                            className="px-2! md:px-3!"
+                            variants={fadeInUp}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                        >
                             <div className="relative overflow-hidden rounded-[20px] md:rounded-[50px] w-[104px] md:w-full">
                                 <img
                                     src={dest.image}
@@ -135,7 +136,7 @@ const Destinations: React.FC = () => {
                                     {dest.name}
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </Slider>
             </div>
