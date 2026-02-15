@@ -44,7 +44,7 @@ const TESTIMONIALS: Testimonial[] = [
 import { useTranslation } from "react-i18next";
 
 export default function Testimonials() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);

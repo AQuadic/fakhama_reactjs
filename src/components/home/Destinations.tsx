@@ -265,8 +265,8 @@ const Destinations: React.FC = () => {
               >
                 <div
                   className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-300 w-full h-[119px] md:h-[377px] ${activeDestination === index
-                      ? "border-[3px] md:border-[5px] border-white shadow-[0_0_12px_rgba(0,0,0,0.25)]"
-                      : "border-[3px] md:border-[5px] border-transparent "
+                    ? "border-[3px] md:border-[5px] border-white shadow-[0_0_12px_rgba(0,0,0,0.25)]"
+                    : "border-[3px] md:border-[5px] border-transparent "
                     }`}
                 >
                   <img

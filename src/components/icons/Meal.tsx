@@ -1,4 +1,6 @@
-const Meal = () => {
+import React from "react"
+
+const Meal = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="24"
@@ -7,6 +9,7 @@ const Meal = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
+      {...props} 
     >
       <mask
         id="mask0_145_3386"
