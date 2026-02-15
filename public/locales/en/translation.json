@@ -31,5 +31,12 @@
     "title": "Testimonials",
     "subtitle": "Trusted reviews from travelers around the world",
     "cta": "Enjoy your next experience"
+  },
+  "hero": {
+    "titleStart": "We organize your trip",
+    "titleMiddle": "from start to finish,",
+    "titleEnd": "with complete confidence.",
+    "description": "From choosing the right destination to returning safely, we take care of every detail of your trip step by step — starting from planning and booking flights and hotels, organizing tour programs and excursions, all the way to continuous support before and during travel.",
+    "button": "Book Now"
   }
 }
