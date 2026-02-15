@@ -12,21 +12,23 @@
   --color-light-blue: #ecf7ff;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-html {
-  scroll-behavior: smooth;
-}
+  html {
+    scroll-behavior: smooth;
+  }
 
-body {
-  font-family: "IBM Plex Sans Arabic", sans-serif;
-  direction: rtl;
-  color: var(--color-dark);
-  background-color: var(--color-white);
+  body {
+    font-family: "IBM Plex Sans Arabic", sans-serif;
+    direction: rtl;
+    color: var(--color-dark);
+    background-color: var(--color-white);
+  }
 }
 
 #root {
@@ -35,13 +37,15 @@ body {
   flex-direction: column;
 }
 
-@media (min-width: 1024px) {
+@layer components {
   .container {
-    padding-left: 120px;
-    padding-right: 120px;
+    @apply max-w-7xl mx-auto px-4;
   }
-}
 
-.container {
-  @apply max-w-7xl mx-auto px-4;
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 120px;
+      padding-right: 120px;
+    }
+  }
 }
