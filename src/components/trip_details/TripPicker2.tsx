@@ -6,7 +6,7 @@ const TripPicker2 = () => {
     const [selectedDate, setSelectedDate] = useState<string | null>(null)
 
     return (
-        <div className="w-[379px] h-full py-8! px-4! bg-[#F7FAFC] rounded-[32px]">
+        <div className="w-[379px] h-auto py-8! px-4! bg-[#F7FAFC] rounded-[32px]">
 
             <div className="p-3 bg-[#DBEEF7] border border-[#0478AF] rounded-[8px] mb-8 flex items-center gap-2">
                 <Price />

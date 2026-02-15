@@ -5,7 +5,7 @@ const TripPicker1 = () => {
     const [selectedRoom, setSelectedRoom] = useState<string | null>(null)
 
     return (
-        <div className="w-[379px] h-full py-8! px-4! bg-[#F7FAFC] rounded-[32px]">
+        <div className="w-[379px] h-auto py-8! px-4! bg-[#F7FAFC] rounded-[32px]">
             <h2 className="text-[#00567E] text-xl font-medium">
                 مواعيد الرحلة
             </h2>

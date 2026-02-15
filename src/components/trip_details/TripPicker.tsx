@@ -1,9 +1,9 @@
-import TripPicker2 from "./TripPicker2"
+import TripPicker1 from "./TripPicker1"
 
 const TripPicker = () => {
     return (
         <div>
-            <TripPicker2 />
+            <TripPicker1 />
         </div>
     )
 }
