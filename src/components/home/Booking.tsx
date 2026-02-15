@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import Bags from "../icons/Bags";
 import Plane from "../icons/Plane";
 import Whatsapp from "../icons/Whatsapp";
@@ -11,23 +12,14 @@ const BOOKING_IMAGES = [
 ];
 
 const Booking = () => {
-  const BookingData = [
-    {
-      icon: Plane,
-      title: "اختر رحلتك المثالية",
-      description: "استكشف برامجنا المتنوعة وحدد رحلتك القادمة بكل سهولة.",
-    },
-    {
-      icon: Bags,
-      title: "حدد كل ما يناسب رحلتك",
-      description: "حدد كل تفاصيل رحلتك الآن واستمتع برحلة بلا عناء.",
-    },
-    {
-      icon: Whatsapp,
-      title: "تواصل مباشرة مع فريقنا",
-      description: "احجز من خلال WhatsApp واحصل على دعم فوري من خبرائنا.",
-    },
-  ];
+  const { t } = useTranslation();
+
+  const icons = [Plane, Bags, Whatsapp];
+
+  const steps = t("booking.steps", { returnObjects: true }) as {
+    title: string;
+    description: string;
+  }[];
 
   const [activeIndex, setActiveIndex] = useState(0);
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -37,7 +29,7 @@ const Booking = () => {
       if (index === activeIndex) return;
       setActiveIndex(index);
     },
-    [activeIndex],
+    [activeIndex]
   );
 
   useEffect(() => {
@@ -64,7 +56,7 @@ const Booking = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        كيفية الحجز
+        {t("booking.smallTitle")}
       </motion.p>
 
       <motion.h2
@@ -74,8 +66,11 @@ const Booking = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        <span className="text-[#00567E]">رحلة</span> خالية من التعقيد حجز{" "}
-        <span className="text-[#00567E]">سلس وسريع</span>
+        <span className="text-[#00567E]">{t("booking.titlePart1")}</span>{" "}
+        {t("booking.titlePart2")}{" "}
+        <span className="text-[#00567E]">
+          {t("booking.titlePart3")}
+        </span>
       </motion.h2>
 
       <div className="lg:-mt-40 mt-6 flex lg:flex-row flex-col items-center justify-between gap-10">
@@ -86,26 +81,31 @@ const Booking = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {BookingData.map((item, index) => (
-            <motion.div
-              key={index}
-              className="flex items-center gap-6"
-              variants={fadeInUp}
-            >
-              <item.icon />
-              <div>
-                <h3 className="text-[#121212] md:text-[32px] text-base font-semibold">
-                  <span className="text-[#00567E]">
-                    {item.title.split(" ")[0]}
-                  </span>{" "}
-                  {item.title.split(" ").slice(1).join(" ")}
-                </h3>
-                <p className="text-[#505050] md:text-xl text-xs font-medium mt-4">
-                  {item.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+          {steps.map((item, index) => {
+            const Icon = icons[index];
+
+            return (
+              <motion.div
+                key={index}
+                className="flex items-center gap-6"
+                variants={fadeInUp}
+              >
+                <Icon />
+                <div>
+                  <h3 className="text-[#121212] md:text-[32px] text-base font-semibold">
+                    <span className="text-[#00567E]">
+                      {item.title.split(" ")[0]}
+                    </span>{" "}
+                    {item.title.split(" ").slice(1).join(" ")}
+                  </h3>
+
+                  <p className="text-[#505050] md:text-xl text-xs font-medium mt-4">
+                    {item.description}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
         <motion.div
@@ -132,7 +132,7 @@ const Booking = () => {
                     ? "w-6 h-2 bg-[#0478AF]"
                     : "w-2 h-2 bg-[#D2D1D1] hover:bg-[#A0A0A0]"
                   }`}
-                aria-label={`صورة ${index + 1}`}
+                aria-label={`image ${index + 1}`}
               />
             ))}
           </div>

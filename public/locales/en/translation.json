@@ -53,5 +53,25 @@
       "recommended": "Recommended Experiences",
       "happyClients": "Satisfied Clients"
     }
+  },
+  "booking": {
+    "smallTitle": "How to Book",
+    "titlePart1": "A Trip",
+    "titlePart2": "without complications — booking",
+    "titlePart3": "smooth and fast",
+    "steps": [
+      {
+        "title": "Choose Your Perfect Trip",
+        "description": "Explore our diverse programs and select your next journey with ease."
+      },
+      {
+        "title": "Customize Your Journey",
+        "description": "Select every detail of your trip and enjoy a hassle-free experience."
+      },
+      {
+        "title": "Contact Our Team Directly",
+        "description": "Book via WhatsApp and receive instant support from our experts."
+      }
+    ]
   }
 }
