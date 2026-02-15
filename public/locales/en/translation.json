@@ -73,5 +73,38 @@
         "description": "Book via WhatsApp and receive instant support from our experts."
       }
     ]
+  },
+  "tripDetails": {
+    "mobileTitle": "Trip Details",
+    "title": "Ramadan Umrah - Makkah",
+    "hotel": "Address Jabal Omar Hotel",
+    "aboutTitle": "About the Trip",
+    "aboutDescription": "Enjoy a special Umrah journey during the blessed month of Ramadan in Makkah, in a spiritual and unforgettable atmosphere. We provide a fully organized experience so you can focus on worship and enjoy the blessings of the holy month near the Holy Kaaba.",
+    "durationTitle": "Trip Duration",
+    "duration": "3 Days",
+    "featuresTitle": "Trip Features",
+    "features": {
+      "flight": "International Flight",
+      "meal": "Breakfast & Suhoor",
+      "hotel": "Luxury Hotel"
+    }
+  },
+  "tripPicker": {
+    "datesTitle": "Trip Dates",
+    "dates": {
+      "date1": "From 22 to 24 February",
+      "date2": "From 24 to 26 February",
+      "date3": "From 1 to 3 March",
+      "date4": "From 3 to 6 March"
+    },
+    "pricesTitle": "Trip Prices",
+    "priceNote": "Price per person",
+    "rooms": {
+      "room1": "Quad Room",
+      "room2": "Triple Room",
+      "room3": "Double Room",
+      "room4": "Single Room"
+    },
+    "bookNow": "Book Now"
   }
 }

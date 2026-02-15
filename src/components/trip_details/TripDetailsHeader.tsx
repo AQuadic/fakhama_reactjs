@@ -8,18 +8,22 @@ import Meal from "../icons/Meal"
 import Star from "../icons/Star"
 import Breadcrumbs from "./Breadcrumbs"
 import TripPicker from "./TripPicker"
+import { useTranslation } from "react-i18next"
 
 const TripDetailsHeader = () => {
+    const { t } = useTranslation()
+
     return (
         <section className="container md:py-8!">
             <div className="md:block hidden">
                 <Breadcrumbs />
             </div>
 
+            {/* Mobile Header */}
             <div className="md:hidden flex items-center gap-[85px]">
                 <BackArrow />
                 <p className="text-[#121212] text-xl font-medium">
-                    تفاصيل الرحلة
+                    {t("tripDetails.mobileTitle")}
                 </p>
             </div>
 
@@ -28,45 +32,51 @@ const TripDetailsHeader = () => {
                     <img
                         src="/images/makka2.jpg"
                         className="md:w-[789px] md:h-[427px] rounded-[32px]"
-                        alt=""
+                        alt="trip"
                     />
+
+                    {/* Trip Title */}
                     <h2 className="text-[#121212] md:text-[40px] text-base font-semibold mt-8!">
-                        عمرة رمضان-مكة المكرمة
+                        {t("tripDetails.title")}
                     </h2>
 
+                    {/* Hotel */}
                     <div className="flex items-center gap-2 bg-[#F7FAFC] px-3! py-2! rounded-[32px] w-fit mt-3">
                         <Location />
                         <p className="text-[#00567E] md:text-xl text-xs font-medium">
-                            فندق العنوان جبل عمر
+                            {t("tripDetails.hotel")}
                         </p>
                     </div>
 
+                    {/* About Section */}
                     <div className="flex items-center gap-3 md:mt-8! mt-5!">
                         <AboutTrip />
                         <h3 className="text-[#121212] md:text-[32px] text-lg font-semibold">
-                            عن الرحلة
+                            {t("tripDetails.aboutTitle")}
                         </h3>
                     </div>
 
                     <p className="text-[#505050] md:text-xl text-xs font-medium leading-[150%] mt-4 md:w-[730px]">
-                        استمتع برحلة عمرة مميزة خلال شهر رمضان المبارك إلى مكة المكرمة، في أجواء إيمانية روحانية لا تُنسى. نمنحك فرصة أداء مناسك العمرة بكل راحة وطمأنينة، مع تنظيم متكامل يراعي أدق التفاصيل لتتفرغ للعبادة والاستمتاع بنفحات الشهر الفضيل بجوار بيت الله الحرام.
+                        {t("tripDetails.aboutDescription")}
                     </p>
 
+                    {/* Duration Section */}
                     <div className="flex items-center gap-3 md:mt-8! mt-5!">
                         <Calender />
                         <h3 className="text-[#121212] md:text-[32px] text-lg font-semibold">
-                            مدة الرحلة
+                            {t("tripDetails.durationTitle")}
                         </h3>
                     </div>
 
                     <p className="text-[#505050] md:text-2xl text-sm font-semibold md:mt-6! mt-3!">
-                        3 أيام
+                        {t("tripDetails.duration")}
                     </p>
 
+                    {/* Features Section */}
                     <div className="flex items-center gap-3 md:mt-8! mt-5!">
                         <EmptyStar />
                         <h3 className="text-[#121212] md:text-[32px] text-lg font-semibold">
-                            مميزات الرحلة
+                            {t("tripDetails.featuresTitle")}
                         </h3>
                     </div>
 
@@ -74,24 +84,26 @@ const TripDetailsHeader = () => {
                         <div className="md:py-3! py-2.5 px-2! bg-[#F7FAFC] rounded-[20px] flex items-center gap-1 mt-3!">
                             <Flights />
                             <p className="text-[#121212] md:text-base text-xs font-medium">
-                                طيران دولي
+                                {t("tripDetails.features.flight")}
                             </p>
                         </div>
 
                         <div className="md:py-3! py-2.5 px-2! bg-[#F7FAFC] rounded-[20px] flex items-center gap-1">
                             <Meal />
                             <p className="text-[#121212] md:text-base text-xs font-medium">
-                                وجبة افطار و سحور
+                                {t("tripDetails.features.meal")}
                             </p>
                         </div>
+
                         <div className="md:py-3! py-2.5 px-2! bg-[#F7FAFC] rounded-[20px] flex items-center gap-1">
                             <Star />
                             <p className="text-[#121212] md:text-base text-xs font-medium">
-                                فندق فاخر
+                                {t("tripDetails.features.hotel")}
                             </p>
                         </div>
                     </div>
                 </div>
+
                 <TripPicker />
             </div>
         </section>
