@@ -31,5 +31,80 @@
     "title": "Testimonials",
     "subtitle": "Trusted reviews from travelers around the world",
     "cta": "Enjoy your next experience"
+  },
+  "hero": {
+    "titleStart": "We organize your trip",
+    "titleMiddle": "from start to finish,",
+    "titleEnd": "with complete confidence.",
+    "description": "From choosing the right destination to returning safely, we take care of every detail of your trip step by step — starting from planning and booking flights and hotels, organizing tour programs and excursions, all the way to continuous support before and during travel.",
+    "button": "Book Now"
+  },
+  "whyUs": {
+    "smallTitle": "Why Us?",
+    "titleHighlight": "Your Trusted Partner",
+    "titleRest": "for smooth and exceptional travel experiences!",
+    "description": "We have extensive experience in organizing trips locally and internationally, offering diverse programs, competitive prices, and 24/7 customer service. We handle every detail of your journey — from planning and booking flights and hotels to organizing activities and excursions — ensuring a smooth and enjoyable travel experience.",
+    "stats": {
+      "clients": "Happy Clients",
+      "destinations": "Different Destinations",
+      "trips": "Special Trips"
+    },
+    "badges": {
+      "recommended": "Recommended Experiences",
+      "happyClients": "Satisfied Clients"
+    }
+  },
+  "booking": {
+    "smallTitle": "How to Book",
+    "titlePart1": "A Trip",
+    "titlePart2": "without complications — booking",
+    "titlePart3": "smooth and fast",
+    "steps": [
+      {
+        "title": "Choose Your Perfect Trip",
+        "description": "Explore our diverse programs and select your next journey with ease."
+      },
+      {
+        "title": "Customize Your Journey",
+        "description": "Select every detail of your trip and enjoy a hassle-free experience."
+      },
+      {
+        "title": "Contact Our Team Directly",
+        "description": "Book via WhatsApp and receive instant support from our experts."
+      }
+    ]
+  },
+  "tripDetails": {
+    "mobileTitle": "Trip Details",
+    "title": "Ramadan Umrah - Makkah",
+    "hotel": "Address Jabal Omar Hotel",
+    "aboutTitle": "About the Trip",
+    "aboutDescription": "Enjoy a special Umrah journey during the blessed month of Ramadan in Makkah, in a spiritual and unforgettable atmosphere. We provide a fully organized experience so you can focus on worship and enjoy the blessings of the holy month near the Holy Kaaba.",
+    "durationTitle": "Trip Duration",
+    "duration": "3 Days",
+    "featuresTitle": "Trip Features",
+    "features": {
+      "flight": "International Flight",
+      "meal": "Breakfast & Suhoor",
+      "hotel": "Luxury Hotel"
+    }
+  },
+  "tripPicker": {
+    "datesTitle": "Trip Dates",
+    "dates": {
+      "date1": "From 22 to 24 February",
+      "date2": "From 24 to 26 February",
+      "date3": "From 1 to 3 March",
+      "date4": "From 3 to 6 March"
+    },
+    "pricesTitle": "Trip Prices",
+    "priceNote": "Price per person",
+    "rooms": {
+      "room1": "Quad Room",
+      "room2": "Triple Room",
+      "room3": "Double Room",
+      "room4": "Single Room"
+    },
+    "bookNow": "Book Now"
   }
 }

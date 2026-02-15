@@ -26,18 +26,6 @@ export default function Home() {
         <Destinations />
       </section>
 
-      {/* Programs Section */}
-      <section
-        id="programs"
-        className="min-h-[40vh] flex items-center justify-center bg-white"
-      >
-        <div className="container">
-          <h2 className="text-3xl font-bold text-[#00567E] text-center">
-            البرامج السياحية
-          </h2>
-        </div>
-      </section>
-
       {/* Testimonials Section */}
       <section id="testimonials" className="py-16 lg:py-24">
         <Testimonials />

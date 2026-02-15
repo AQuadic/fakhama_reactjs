@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const Hero = () => {
+    const { t } = useTranslation();
     // Variants for animation
     const containerVariants = {
         hidden: { opacity: 0, y: 20 },
@@ -21,7 +23,6 @@ const Hero = () => {
 
     return (
         <section className="relative container flex flex-wrap items-center gap-8 md:!py-12 py-8">
-            {/* Background image */}
             <div
                 className="absolute inset-0 bg-cover bg-center opacity-20 -z-10"
                 style={{ backgroundImage: "url('/images/world.png')" }}
@@ -38,16 +39,20 @@ const Hero = () => {
                     className="text-[#121212] md:text-[48px] text-2xl font-semibold leading-[150%]"
                     variants={fadeInUp}
                 >
-                    <span className="text-[#00567E]">نرتّب رحلتك </span>
-                    من البداية للنهاية ، <br />
-                    <span className="text-[#00567E]">بكل ثقة.</span>
+                    <span className="text-[#00567E]">
+                        {t("hero.titleStart")}{" "}
+                    </span>
+                    {t("hero.titleMiddle")} <br />
+                    <span className="text-[#00567E]">
+                        {t("hero.titleEnd")}
+                    </span>
                 </motion.h2>
 
                 <motion.p
                     className="text-[#505050] md:text-xl text-sm font-medium mt-6"
                     variants={fadeInUp}
                 >
-                    من اختيار الوجهة المناسبة وحتى العودة بسلام، نهتم بكل تفاصيل رحلتك  <br />خطوة بخطوة، بدايةً من التخطيط وحجز الطيران والفنادق، مرورًا بتنظيم البرامج <br />السياحية والرحلات، وصولًا إلى الدعم المستمر قبل وأثناء السفر.
+                    {t("hero.description")}
                 </motion.p>
 
                 <motion.button
@@ -56,7 +61,7 @@ const Hero = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    احجز الآن
+                    {t("hero.button")}
                 </motion.button>
 
                 <motion.div

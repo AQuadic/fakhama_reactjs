@@ -8,7 +8,7 @@ const TripPicker2 = () => {
     return (
         <div className="w-[379px] h-auto py-8! px-4! bg-[#F7FAFC] rounded-[32px]">
 
-            <div className="p-3 bg-[#DBEEF7] border border-[#0478AF] rounded-[8px] mb-8 flex items-center gap-2">
+            <div className="p-3! bg-[#DBEEF7] border border-[#0478AF] rounded-[8px] mb-8! flex items-center gap-2">
                 <Price />
                 <p className="text-[#121212] text-lg font-medium">
                     السعر يبدأ من <span className="text-[#00567E] text-xl">4,500 د.إ</span> للفرد الواحد
@@ -24,7 +24,7 @@ const TripPicker2 = () => {
                         مطار ابو ظبي
                     </TabsTrigger>
                 </TabsList>
-                <TabsContent value="airport1" className="mt-6">
+                <TabsContent value="airport1" className="mt-6!">
                     <h2 className="text-[#00567E] text-xl font-medium">
                         مواعيد الرحلة
                     </h2>
@@ -32,10 +32,10 @@ const TripPicker2 = () => {
 
                     <div className="mt-4!">
                         <div
-                            className={`flex items-center justify-between mb-4! p-3 rounded-lg transition-all ${selectedDate === 'date1' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
+                            className={`flex items-center justify-between mb-4! p-3! rounded-lg transition-all ${selectedDate === 'date1' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
                                 }`}
                         >
-                            <label htmlFor="item1" className="select-none ms-2 text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
+                            <label htmlFor="item1" className="select-none ms-2! text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
                                 من 22 إلي 24 فبراير
                             </label>
                             <input
@@ -48,10 +48,10 @@ const TripPicker2 = () => {
                         </div>
 
                         <div
-                            className={`flex items-center justify-between mb-4! p-3 rounded-lg transition-all ${selectedDate === 'date2' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
+                            className={`flex items-center justify-between mb-4! p-3! rounded-lg transition-all ${selectedDate === 'date2' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
                                 }`}
                         >
-                            <label htmlFor="item2" className="select-none ms-2 text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
+                            <label htmlFor="item2" className="select-none ms-2! text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
                                 من 24 إلي 26 فبراير
                             </label>
                             <input
@@ -64,7 +64,7 @@ const TripPicker2 = () => {
                         </div>
 
                         <div
-                            className={`flex items-center justify-between mb-4! p-3 rounded-lg transition-all ${selectedDate === 'date3' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
+                            className={`flex items-center justify-between mb-4! p-3! rounded-lg transition-all ${selectedDate === 'date3' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
                                 }`}
                         >
                             <label htmlFor="item3" className="select-none ms-2 text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
@@ -80,10 +80,10 @@ const TripPicker2 = () => {
                         </div>
 
                         <div
-                            className={`flex items-center justify-between mb-4! p-3 rounded-lg transition-all ${selectedDate === 'date4' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
+                            className={`flex items-center justify-between mb-4! p-3! rounded-lg transition-all ${selectedDate === 'date4' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
                                 }`}
                         >
-                            <label htmlFor="item4" className="select-none ms-2 text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
+                            <label htmlFor="item4" className="select-none ms-2! text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
                                 من 3 إلي 6 مارس
                             </label>
                             <input
@@ -103,10 +103,10 @@ const TripPicker2 = () => {
                 <TabsContent value="airport2">
                     <div className="mt-4!">
                         <div
-                            className={`flex items-center justify-between mb-4! p-3 rounded-lg transition-all ${selectedDate === 'date1' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
+                            className={`flex items-center justify-between mb-4! p-3! rounded-lg transition-all ${selectedDate === 'date1' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
                                 }`}
                         >
-                            <label htmlFor="item1" className="select-none ms-2 text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
+                            <label htmlFor="item1" className="select-none ms-2! text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
                                 من 22 إلي 24 فبراير
                             </label>
                             <input
@@ -119,10 +119,10 @@ const TripPicker2 = () => {
                         </div>
 
                         <div
-                            className={`flex items-center justify-between mb-4! p-3 rounded-lg transition-all ${selectedDate === 'date2' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
+                            className={`flex items-center justify-between mb-4! p-3! rounded-lg transition-all ${selectedDate === 'date2' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
                                 }`}
                         >
-                            <label htmlFor="item2" className="select-none ms-2 text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
+                            <label htmlFor="item2" className="select-none ms-2! text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
                                 من 24 إلي 26 فبراير
                             </label>
                             <input
@@ -135,10 +135,10 @@ const TripPicker2 = () => {
                         </div>
 
                         <div
-                            className={`flex items-center justify-between mb-4! p-3 rounded-lg transition-all ${selectedDate === 'date3' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
+                            className={`flex items-center justify-between mb-4! p-3! rounded-lg transition-all ${selectedDate === 'date3' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
                                 }`}
                         >
-                            <label htmlFor="item3" className="select-none ms-2 text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
+                            <label htmlFor="item3" className="select-none ms-2! text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
                                 من 1 إلي 3 مارس
                             </label>
                             <input
@@ -151,10 +151,10 @@ const TripPicker2 = () => {
                         </div>
 
                         <div
-                            className={`flex items-center justify-between mb-4! p-3 rounded-lg transition-all ${selectedDate === 'date4' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
+                            className={`flex items-center justify-between mb-4! p-3! rounded-lg transition-all ${selectedDate === 'date4' ? 'border-2 border-[#0478AF] bg-white' : 'border-2 border-transparent'
                                 }`}
                         >
-                            <label htmlFor="item4" className="select-none ms-2 text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
+                            <label htmlFor="item4" className="select-none ms-2! text-sm font-medium text-heading text-[#121212] text-lg font-medium cursor-pointer">
                                 من 3 إلي 6 مارس
                             </label>
                             <input
