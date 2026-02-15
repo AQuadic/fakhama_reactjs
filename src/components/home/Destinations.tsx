@@ -97,10 +97,14 @@ interface TripCardProps {
   trip: Trip;
 }
 
+// --- Trip Card Component ---
+interface TripCardProps {
+  trip: Trip;
+}
+
 const TripCard: React.FC<TripCardProps> = ({ trip }) => {
   return (
     <motion.div
-      dir="rtl"
       className="px-2! md:px-4!"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -124,8 +128,8 @@ const TripCard: React.FC<TripCardProps> = ({ trip }) => {
 
         {/* Installment Badge — top-left */}
         {trip.hasInstallment && (
-          <div className="absolute top-4 md:top-6 right-3 md:right-4 z-10">
-            <div className="flex flex-row-reverse items-center gap-1 bg-[#FEFEFE] rounded-[28px] px-2 py-1.5 md:py-2">
+          <div className="absolute top-4 md:top-6 left-3 md:left-4 z-10">
+            <div className="flex flex-row-reverse items-center gap-1 bg-[#FEFEFE] rounded-[28px] px-2! py-1.5! md:py-2!">
               <span className="text-dark text-[10px] md:text-xs font-semibold leading-none">
                 تقسيط مريح
               </span>
@@ -135,17 +139,17 @@ const TripCard: React.FC<TripCardProps> = ({ trip }) => {
         )}
 
         {/* Bottom Content */}
-        <div className="text-right! w-full absolute bottom-0 left-0 right-0 p-3 md:p-4 z-10">
-          <div className="bg-black/15 backdrop-blur-xs rounded-2xl p-3 md:p-4 flex flex-col items-end gap-2.5 md:gap-3">
+        <div className="text-right! w-full absolute bottom-0 left-0 right-0 p-3! md:p-4! z-10">
+          <div className="bg-black/15 backdrop-blur-xs rounded-2xl p-3! md:p-4! flex flex-col items-end gap-2.5 md:gap-3">
             <div className="flex flex-col items-end gap-2 md:gap-3 w-full">
               <div className="flex flex-col items-end gap-1.5 md:gap-3">
-                <h3 className="text-[#FEFEFE] text-sm md:text-lg font-semibold leading-none text-right">
+                <h3 className="text-[#FEFEFE] text-sm md:text-lg font-semibold leading-none text-right!">
                   {trip.title}
                 </h3>
-                <p className="text-[#FEFEFE] text-xs md:text-base font-medium leading-none text-right">
+                <p className="text-[#FEFEFE] text-xs md:text-base font-medium leading-none text-right!">
                   أسعار تبدأ من : {trip.price}
                 </p>
-                <p className="text-[#FEFEFE] text-xs md:text-base font-medium leading-none text-right">
+                <p className="text-[#FEFEFE] text-xs md:text-base font-medium leading-none text-right!">
                   مدة الرحلة: {trip.duration}
                 </p>
               </div>
@@ -154,7 +158,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip }) => {
                 {trip.features.map((feature, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-1 bg-[#E9E9E9] rounded-[20px] px-2 py-1"
+                    className="flex items-center gap-1 bg-[#E9E9E9] rounded-[20px] px-2! py-1!"
                   >
                     <span className="text-dark text-[8px] md:text-[10px] font-medium leading-none">
                       {feature.label}
@@ -173,6 +177,49 @@ const TripCard: React.FC<TripCardProps> = ({ trip }) => {
 
 // --- Static Data ---
 const destinations: Destination[] = [
+  {
+    name: "مكة المكرمة",
+    image: "/images/makka.jpg",
+    tripCount: "+900 رحلة",
+    trips: [
+      {
+        title: "عمرة رمضان - مكة المكرمة",
+        price: "3,150 د.إ",
+        duration: "3 أيام",
+        image: "/images/trips/trip_card_1.png",
+        features: [
+          { label: "فندق فاخر", icon: "star" },
+          { label: "وجبة افطار و سحور", icon: "meal" },
+          { label: "طيران دولي", icon: "plane" },
+        ],
+        hasInstallment: true,
+      },
+      {
+        title: "عمرة رجب - مكة المكرمة",
+        price: "2,800 د.إ",
+        duration: "5 أيام",
+        image: "/images/trips/trip_card_2.png",
+        features: [
+          { label: "فندق فاخر", icon: "star" },
+          { label: "وجبة افطار و سحور", icon: "meal" },
+          { label: "طيران دولي", icon: "plane" },
+        ],
+        hasInstallment: true,
+      },
+      {
+        title: "عمرة شعبان - مكة المكرمة",
+        price: "3,500 د.إ",
+        duration: "4 أيام",
+        image: "/images/trips/trip_card_3.png",
+        features: [
+          { label: "فندق فاخر", icon: "star" },
+          { label: "وجبة افطار و سحور", icon: "meal" },
+          { label: "طيران دولي", icon: "plane" },
+        ],
+        hasInstallment: true,
+      },
+    ],
+  },
   {
     name: "مكة المكرمة",
     image: "/images/makka.jpg",
@@ -307,6 +354,7 @@ const Destinations: React.FC = () => {
   const [activeDestination, setActiveDestination] = useState(0);
 
   const destinationSliderSettings = {
+    rtl: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -332,6 +380,7 @@ const Destinations: React.FC = () => {
   };
 
   const tripSliderSettings = {
+    rtl: true,
     infinite: false,
     speed: 500,
     slidesToShow: 3,
@@ -361,7 +410,7 @@ const Destinations: React.FC = () => {
   const activeTrips = destinations[activeDestination]?.trips ?? [];
 
   return (
-    <section className="max-w-7xl mx-auto px-4 lg:px-[120px] py-8! md:py-16!">
+    <section className="container">
       {/* Section Header */}
       <p className="text-gray text-[10px] md:text-lg font-medium">
         الوجهات السياحية
@@ -435,7 +484,7 @@ const Destinations: React.FC = () => {
 
       {/* Show More Button */}
       <div className="flex justify-center mt-8! md:mt-12!">
-        <button className="bg-[#0478AF] text-white font-semibold text-sm md:text-lg px-10 md:px-14 py-2.5 md:py-3 rounded-[50px] cursor-pointer hover:bg-[#0590D0] transition-colors">
+        <button className="bg-[#0478AF] text-white font-semibold text-sm md:text-lg px-10! md:px-14! py-2.5! md:py-3! rounded-[50px] cursor-pointer hover:bg-[#0590D0] transition-colors">
           عرض المزيد
         </button>
       </div>
