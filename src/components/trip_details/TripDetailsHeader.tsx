@@ -16,7 +16,7 @@ const TripDetailsHeader = () => {
                 <Breadcrumbs />
             </div>
 
-            <div className="flex items-center gap-[85px]">
+            <div className="md:hidden flex items-center gap-[85px]">
                 <BackArrow />
                 <p className="text-[#121212] text-xl font-medium">
                     تفاصيل الرحلة
