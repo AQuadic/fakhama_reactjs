@@ -41,7 +41,10 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
+import { useTranslation } from "react-i18next";
+
 export default function Testimonials() {
+  const { t, i18n } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -89,10 +92,10 @@ export default function Testimonials() {
             {/* Section Header */}
             <div className="flex flex-col items-end gap-3 w-full">
               <span className="text-lg text-right! w-full font-medium text-[#505050]">
-                أراء العملاء
+                {t("testimonials.title")}
               </span>
               <h2 className="text-[40px] text-right! w-full font-semibold leading-[1.5] text-[#00567E]">
-                آراء موثوقة من مسافرين حول العالم
+                {t("testimonials.subtitle")}
               </h2>
             </div>
 
@@ -174,7 +177,7 @@ export default function Testimonials() {
                     />
                   </div>
                   <button className="w-full py-2 text-lg font-semibold text-[#00567E] border border-[#0478AF] rounded-full hover:bg-[#0478AF] hover:text-white transition-colors duration-200">
-                    استمتع بتجربتك القادمة
+                    {t("testimonials.cta")}
                   </button>
                 </div>
 
@@ -201,10 +204,10 @@ export default function Testimonials() {
             {/* Section Header */}
             <div className="flex flex-col items-start gap-2">
               <span className="text-[10px] font-medium text-[#505050]">
-                أراء العملاء
+                {t("testimonials.title")}
               </span>
               <h2 className="text-lg font-semibold leading-[1.5] text-[#00567E]">
-                آراء موثوقة من مسافرين حول العالم
+                {t("testimonials.subtitle")}
               </h2>
             </div>
 
@@ -221,7 +224,7 @@ export default function Testimonials() {
                   />
                 </div>
                 <button className="w-full py-2 text-xs font-bold text-[#00567E] border border-[#0478AF] rounded-full hover:bg-[#0478AF] hover:text-white transition-colors duration-200">
-                  استمتع بتجربتك القادمة
+                  {t("testimonials.cta")}
                 </button>
               </div>
 

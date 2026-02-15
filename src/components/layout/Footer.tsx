@@ -1,13 +1,15 @@
 import footerLogo from "../../assets/footer-logo.svg";
 import footerMapBg from "../../assets/footer-map-bg-6a9584.png";
 
+import { useTranslation } from "react-i18next";
+
 const FOOTER_LINKS = [
-  { label: "الرئيسية", href: "#hero" },
-  { label: "لماذا نحن", href: "#why-us" },
-  { label: "الوجهات", href: "#destinations" },
-  { label: "البرامج السياحية", href: "#programs" },
-  { label: "أراء العملاء", href: "#testimonials" },
-  { label: "كيفية الحجز", href: "#how-to-book" },
+  { label: "header.home", href: "#hero" },
+  { label: "header.whyUs", href: "#why-us" },
+  { label: "header.destinations", href: "#destinations" },
+  { label: "header.programs", href: "#programs" },
+  { label: "header.testimonials", href: "#testimonials" },
+  { label: "header.howToBook", href: "#how-to-book" },
 ];
 
 function handleScrollTo(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
@@ -91,8 +93,10 @@ function FacebookIcon() {
 }
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
-    <footer className="relative bg-[#0478AF] overflow-hidden pb-8!" dir="rtl">
+    <footer className="relative bg-[#0478AF] overflow-hidden pb-8!">
       {/* Background Image (map overlay) */}
       <img
         src={footerMapBg}
@@ -117,8 +121,7 @@ export default function Footer() {
                   className="w-[180px] h-[180px]"
                 />
                 <p className="text-white text-base font-semibold leading-none text-center max-w-[400px] !text-center">
-                  شركة متخصصة بتقديم أفضل عروض السفر و أرقى الخدمات السياحية
-                  بالإمارات.
+                  {t("footer.description")}
                 </p>
               </div>
 
@@ -133,7 +136,7 @@ export default function Footer() {
                       link.href === "#hero" ? "font-semibold" : "font-medium"
                     }`}
                   >
-                    {link.label}
+                    {t(link.label)}
                   </a>
                 ))}
               </nav>
@@ -143,7 +146,7 @@ export default function Footer() {
           {/* Subscribe Section */}
           <div className="flex flex-col items-center gap-4 w-[218px]">
             <p className="text-sm font-semibold text-white text-center leading-none !text-center">
-              ابقَ على اطلاع بأحدث عروض السفر معنا
+              {t("footer.subscribeTitle")}
             </p>
             <div className="flex items-center gap-4">
               <a
@@ -191,8 +194,7 @@ export default function Footer() {
                     className="w-[121px] h-[121px]"
                   />
                   <p className="text-white text-[8px] font-semibold leading-none text-center -mt-4 !text-center">
-                    شركة متخصصة بتقديم أفضل عروض السفر و أرقى الخدمات السياحية
-                    بالإمارات.
+                    {t("footer.description")}
                   </p>
                 </div>
 
@@ -207,7 +209,7 @@ export default function Footer() {
                         link.href === "#hero" ? "font-semibold" : "font-medium"
                       }`}
                     >
-                      {link.label}
+                      {t(link.label)}
                     </a>
                   ))}
                 </nav>
@@ -220,7 +222,7 @@ export default function Footer() {
             {/* Subscribe Section */}
             <div className="flex flex-col items-center gap-4 w-[218px]">
               <p className="text-xs font-medium text-white text-center leading-none !text-center">
-                ابقَ على اطلاع بأحدث عروض السفر معنا
+                {t("footer.subscribeTitle")}
               </p>
               <div className="flex items-center gap-4">
                 <a

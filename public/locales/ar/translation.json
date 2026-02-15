@@ -1,0 +1,35 @@
+{
+  "header": {
+    "home": "الرئيسية",
+    "whyUs": "لماذا نحن",
+    "destinations": "الوجهات",
+    "programs": "البرامج السياحية",
+    "testimonials": "أراء العملاء",
+    "howToBook": "كيفية الحجز",
+    "bookNow": "احجز الآن",
+    "search": "بحث",
+    "menuOpen": "فتح القائمة",
+    "menuClose": "إغلاق القائمة"
+  },
+  "destinations": {
+    "sectionTitle": "الوجهات السياحية",
+    "heroTitle": "إختر وجهتك",
+    "heroSubtitle": "القادمة وانطلق في",
+    "heroHighlight": "رحلة لا تُنسى",
+    "showMore": "عرض المزيد",
+    "tripCount": "رحلة",
+    "installment": "تقسيط مريح",
+    "priceStart": "أسعار تبدأ من :",
+    "duration": "مدة الرحلة:"
+  },
+  "footer": {
+    "description": "شركة متخصصة بتقديم أفضل عروض السفر و أرقى الخدمات السياحية بالإمارات.",
+    "subscribeTitle": "ابقَ على اطلاع بأحدث عروض السفر معنا",
+    "followUs": "تابعنا على"
+  },
+  "testimonials": {
+    "title": "أراء العملاء",
+    "subtitle": "آراء موثوقة من مسافرين حول العالم",
+    "cta": "استمتع بتجربتك القادمة"
+  }
+}

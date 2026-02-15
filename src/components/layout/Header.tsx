@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import SearchSidebar from "./SearchSidebar";
+import { useTranslation } from "react-i18next";
 
 const NAV_LINKS = [
-  { label: "الرئيسية", href: "#hero" },
-  { label: "لماذا نحن", href: "#why-us" },
-  { label: "الوجهات", href: "#destinations" },
-  { label: "البرامج السياحية", href: "#programs" },
-  { label: "أراء العملاء", href: "#testimonials" },
-  { label: "كيفية الحجز", href: "#how-to-book" },
+  { label: "header.home", href: "#hero" },
+  { label: "header.whyUs", href: "#why-us" },
+  { label: "header.destinations", href: "#destinations" },
+  { label: "header.programs", href: "#programs" },
+  { label: "header.testimonials", href: "#testimonials" },
+  { label: "header.howToBook", href: "#how-to-book" },
 ];
 
 /** Returns the id of whichever section is currently most in view. */
@@ -112,9 +113,15 @@ function CloseIcon() {
 }
 
 export default function Header() {
+  const { t, i18n } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === "ar" ? "en" : "ar";
+    i18n.changeLanguage(newLang);
+  };
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
@@ -145,8 +152,9 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-colors duration-300 ${isScrolled ? "bg-[#F7FAFC] shadow-sm" : "bg-white"
-          }`}
+        className={`sticky top-0 z-50 transition-colors duration-300 ${
+          isScrolled ? "bg-[#F7FAFC] shadow-sm" : "bg-white"
+        }`}
       >
         {/* Desktop Header */}
         <nav className="hidden lg:flex items-center justify-between h-20 container">
@@ -173,12 +181,13 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`relative flex flex-col items-center gap-2 text-lg leading-none transition-colors duration-200 ${active
+                  className={`relative flex flex-col items-center gap-2 text-lg leading-none transition-colors duration-200 ${
+                    active
                       ? "font-semibold text-[#0478AF]"
                       : "font-medium text-[#121212] hover:text-[#0478AF]"
-                    }`}
+                  }`}
                 >
-                  {link.label}
+                  {t(link.label)}
                   {active && (
                     <span className="w-10 h-1 bg-[#0478AF] rounded-full" />
                   )}
@@ -192,16 +201,22 @@ export default function Header() {
             <button
               onClick={() => setIsSearchOpen(true)}
               className="flex items-center justify-center rounded-full border border-[#0478AF] w-14 h-14 text-[#0478AF] hover:bg-[#0478AF] hover:text-white transition-colors duration-200"
-              aria-label="بحث"
+              aria-label={t("header.search")}
             >
               <SearchIcon className="w-6 h-6" />
+            </button>
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center justify-center rounded-full border border-[#0478AF] w-14 h-14 text-[#0478AF] hover:bg-[#0478AF] hover:text-white transition-colors duration-200 font-semibold"
+            >
+              {i18n.language === "ar" ? "EN" : "عربي"}
             </button>
             <a
               href="#book"
               onClick={(e) => handleNavClick(e, "#book")}
               className="flex items-center justify-center bg-[#0478AF] text-white font-semibold text-lg rounded-full w-[205px] h-14 hover:bg-[#00567E] transition-colors duration-200"
             >
-              احجز الآن
+              {t("header.bookNow")}
             </a>
           </div>
         </nav>
@@ -224,14 +239,22 @@ export default function Header() {
             <button
               onClick={() => setIsSearchOpen(true)}
               className="flex items-center justify-center rounded-full border border-[#0478AF] w-10 h-10 text-[#0478AF]"
-              aria-label="بحث"
+              aria-label={t("header.search")}
             >
               <SearchIcon className="w-5 h-5" />
             </button>
             <button
+              onClick={toggleLanguage}
+              className="flex items-center justify-center rounded-full border border-[#0478AF] w-10 h-10 text-[#0478AF] font-bold text-xs"
+            >
+              {i18n.language === "ar" ? "EN" : "ع"}
+            </button>
+            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="flex items-center justify-center w-10 h-10"
-              aria-label={isMobileMenuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+              aria-label={
+                isMobileMenuOpen ? t("header.menuClose") : t("header.menuOpen")
+              }
               aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -249,8 +272,9 @@ export default function Header() {
 
         {/* Mobile Menu Drawer */}
         <div
-          className={`lg:hidden fixed top-[68px] right-0 w-[85vw] max-w-[320px] h-[calc(100vh-68px)] bg-white z-50 shadow-xl transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-            }`}
+          className={`lg:hidden fixed top-[68px] right-0 w-[85vw] max-w-[320px] h-[calc(100vh-68px)] bg-white z-50 shadow-xl transform transition-transform duration-300 ease-in-out ${
+            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         >
           <div className="flex flex-col py-4 gap-0">
             {NAV_LINKS.map((link) => {
@@ -261,12 +285,13 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`py-4! px-6! text-[15px] border-b border-gray-50 transition-colors duration-200 ${active
+                  className={`py-4! px-6! text-[15px] border-b border-gray-50 transition-colors duration-200 ${
+                    active
                       ? "font-semibold text-[#0478AF] bg-[#ECF7FF] border-[#ECF7FF]"
                       : "font-medium text-[#121212] hover:bg-[#F7FAFC]"
-                    }`}
+                  }`}
                 >
-                  {link.label}
+                  {t(link.label)}
                 </a>
               );
             })}
@@ -276,7 +301,7 @@ export default function Header() {
                 onClick={(e) => handleNavClick(e, "#book")}
                 className="flex items-center justify-center bg-[#0478AF] text-white font-semibold text-[15px] rounded-full h-12 hover:bg-[#00567E] transition-colors duration-200 w-full"
               >
-                احجز الآن
+                {t("header.bookNow")}
               </a>
             </div>
           </div>

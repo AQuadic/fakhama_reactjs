@@ -139,22 +139,22 @@ const TripCard: React.FC<TripCardProps> = ({ trip }) => {
         )}
 
         {/* Bottom Content */}
-        <div className="text-right! w-full absolute bottom-0 left-0 right-0 p-3! md:p-4! z-10">
-          <div className="bg-black/15 backdrop-blur-xs rounded-2xl p-3! md:p-4! flex flex-col items-end gap-2.5 md:gap-3">
-            <div className="flex flex-col items-end gap-2 md:gap-3 w-full">
-              <div className="flex flex-col items-end gap-1.5 md:gap-3">
-                <h3 className="text-[#FEFEFE] text-sm md:text-lg font-semibold leading-none text-right!">
+        <div className="w-full absolute bottom-0 left-0 right-0 p-3! md:p-4! z-10">
+          <div className="bg-black/15 backdrop-blur-xs rounded-2xl p-3! md:p-4! flex flex-col gap-2.5 md:gap-3">
+            <div className="flex flex-col gap-2 md:gap-3 w-full">
+              <div className="flex flex-col gap-1.5 md:gap-3">
+                <h3 className="text-[#FEFEFE] text-sm md:text-lg font-semibold leading-none">
                   {trip.title}
                 </h3>
-                <p className="text-[#FEFEFE] text-xs md:text-base font-medium leading-none text-right!">
+                <p className="text-[#FEFEFE] text-xs md:text-base font-medium leading-none">
                   أسعار تبدأ من : {trip.price}
                 </p>
-                <p className="text-[#FEFEFE] text-xs md:text-base font-medium leading-none text-right!">
+                <p className="text-[#FEFEFE] text-xs md:text-base font-medium leading-none">
                   مدة الرحلة: {trip.duration}
                 </p>
               </div>
               {/* Feature Badges */}
-              <div className="flex flex-wrap justify-end gap-1.5 md:gap-2 w-full">
+              <div className="flex flex-wrap gap-1.5 md:gap-2 w-full">
                 {trip.features.map((feature, idx) => (
                   <div
                     key={idx}
