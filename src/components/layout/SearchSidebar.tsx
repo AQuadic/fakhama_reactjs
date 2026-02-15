@@ -60,15 +60,15 @@ export default function SearchSidebar({ isOpen, onClose }: SearchSidebarProps) {
                                 display: none;
                                 }
                             `}</style>
-                            <div className="p-6">
-                                <div className="mb-8">
+                            <div className="p-6!">
+                                <div className="mb-8!">
                                     <div className="relative">
                                         <input
                                             type="text"
                                             placeholder="إبحث عن رحتلك المفضلة .."
                                             value={searchTerm}
                                             onChange={(e) => setSearchTerm(e.target.value)}
-                                            className="w-full px-12 py-3 pr-10 border border--[#D2D1D1] rounded-[50px] focus:outline-none"
+                                            className="w-full px-12! py-3! pr-10! border border--[#D2D1D1] rounded-[50px] focus:outline-none"
                                             autoFocus
                                         />
                                         <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -81,7 +81,7 @@ export default function SearchSidebar({ isOpen, onClose }: SearchSidebarProps) {
                                 </div>
 
                                 {searchTerm.trim() === "" ? (
-                                    <div className="py-32">
+                                    <div className="py-32!">
                                         <div className="flex flex-col items-center justify-center">
                                             <SearchIcon />
                                             <p className="text-2xl text-[#121212] font-medium text-center mt-4">
