@@ -10,6 +10,7 @@ import Star from "../icons/Star";
 import Meal from "../icons/Meal";
 import PlaneSmall from "../icons/PlaneSmall";
 import Wallet from "../icons/Wallet";
+import { Link } from "react-router-dom";
 
 // --- Types ---
 interface Trip {
@@ -263,11 +264,10 @@ const Destinations: React.FC = () => {
                 onClick={() => setActiveDestination(index)}
               >
                 <div
-                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-300 w-full h-[119px] md:h-[377px] ${
-                    activeDestination === index
+                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-300 w-full h-[119px] md:h-[377px] ${activeDestination === index
                       ? "border-[3px] md:border-[5px] border-white shadow-[0_0_12px_rgba(0,0,0,0.25)]"
                       : "border-[3px] md:border-[5px] border-transparent "
-                  }`}
+                    }`}
                 >
                   <img
                     src={dest.image}
@@ -364,7 +364,7 @@ const Destinations: React.FC = () => {
             >
               {activeTrips.map((trip, idx) => (
                 <SwiperSlide key={`${activeDestination}-${idx}`}>
-                  <div className="w-full">
+                  <Link to='/trip-details' className="w-full">
                     <div className="relative overflow-hidden rounded-[32px] md:rounded-4xl cursor-pointer group">
                       {/* Background Image */}
                       <div
@@ -426,7 +426,7 @@ const Destinations: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </SwiperSlide>
               ))}
             </Swiper>
