@@ -11,17 +11,6 @@
     "menuOpen": "فتح القائمة",
     "menuClose": "إغلاق القائمة"
   },
-  "destinations": {
-    "sectionTitle": "الوجهات السياحية",
-    "heroTitle": "إختر وجهتك",
-    "heroSubtitle": "القادمة وانطلق في",
-    "heroHighlight": "رحلة لا تُنسى",
-    "showMore": "عرض المزيد",
-    "tripCount": "رحلة",
-    "installment": "تقسيط مريح",
-    "priceStart": "أسعار تبدأ من :",
-    "duration": "مدة الرحلة:"
-  },
   "footer": {
     "description": "شركة متخصصة بتقديم أفضل عروض السفر و أرقى الخدمات السياحية بالإمارات.",
     "subscribeTitle": "ابقَ على اطلاع بأحدث عروض السفر معنا",
@@ -106,5 +95,15 @@
       "room4": "غرفة فردية"
     },
     "bookNow": "احجز الآن"
+  },
+    "destinations": {
+    "subtitle": "الوجهات السياحية",
+    "titleStart": "إختر وجهتك",
+    "titleEnd": "القادمة وانطلق في",
+    "titleHighlight": "رحلة لا تُنسى",
+    "installment": "تقسيط مريح",
+    "priceFrom": "أسعار تبدأ من :",
+    "duration": "مدة الرحلة:",
+    "showMore": "عرض المزيد"
   }
 }

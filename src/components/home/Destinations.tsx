@@ -220,7 +220,7 @@ const destinations: Destination[] = [
 
 // --- Main Destinations Component ---
 const Destinations: React.FC = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeDestination, setActiveDestination] = useState(0);
 
   const activeTrips = destinations[activeDestination]?.trips ?? [];
@@ -231,11 +231,16 @@ const Destinations: React.FC = () => {
       {/* Section Header */}
       <div className="px-4! md:px-0!">
         <p className="text-gray text-[10px]! md:text-lg! font-medium">
-          الوجهات السياحية
+          {t("destinations.subtitle")}
         </p>
-        <h2 className="text-dark text-lg! md:text-[40px]! font-semibold leading-[150%]">
-          <span className="text-[#00567E]">إختر وجهتك</span> القادمة وانطلق في{" "}
-          <span className="text-[#00567E]">رحلة لا تُنسى</span>
+        <h2 className="text-dark text-lg md:text-[40px] font-semibold leading-[150%]">
+          <span className="text-[#00567E]">
+            {t("destinations.titleStart")}
+          </span>{" "}
+          {t("destinations.titleEnd")}{" "}
+          <span className="text-[#00567E]">
+            {t("destinations.titleHighlight")}
+          </span>
         </h2>
       </div>
       {/* Destination Tabs Slider */}
@@ -386,7 +391,7 @@ const Destinations: React.FC = () => {
                         <div className="absolute top-4 md:top-6 left-3 md:left-4 z-10">
                           <div className="flex flex-row-reverse items-center gap-1! bg-[#FEFEFE] rounded-[28px] px-2! py-1.5! md:py-2!">
                             <span className="text-dark text-[8px] md:text-xs font-semibold leading-none">
-                              تقسيط مريح
+                              {t("destinations.installment")}
                             </span>
                             <Wallet className="w-3.5 h-3.5 md:w-4 md:h-4" />
                           </div>
@@ -474,7 +479,7 @@ const Destinations: React.FC = () => {
       {/* Show More Button */}
       <div className="flex justify-center mt-8! md:mt-12! px-4! md:px-0!">
         <button className="bg-[#0478AF] text-white font-semibold text-sm md:text-lg px-10! md:px-14! py-2.5! md:py-3! rounded-[50px] cursor-pointer hover:bg-[#0590D0] transition-colors w-full md:w-auto">
-          عرض المزيد
+          {t("destinations.showMore")}
         </button>
       </div>
     </section>

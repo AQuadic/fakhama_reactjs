@@ -11,17 +11,6 @@
     "menuOpen": "Open Menu",
     "menuClose": "Close Menu"
   },
-  "destinations": {
-    "sectionTitle": "Tourist Destinations",
-    "heroTitle": "Choose your next",
-    "heroSubtitle": "destination and embark on",
-    "heroHighlight": "an unforgettable journey",
-    "showMore": "Show More",
-    "tripCount": "Trips",
-    "installment": "Easy Installment",
-    "priceStart": "Prices start from:",
-    "duration": "Duration:"
-  },
   "footer": {
     "description": "A company specializing in providing the best travel offers and the finest tourism services in the UAE.",
     "subscribeTitle": "Stay updated with our latest travel offers",
@@ -106,5 +95,15 @@
       "room4": "Single Room"
     },
     "bookNow": "Book Now"
+  },
+  "destinations": {
+    "subtitle": "Tourist Destinations",
+    "titleStart": "Choose your",
+    "titleEnd": "next destination and start a",
+    "titleHighlight": "journey you'll never forget",
+    "installment": "Easy Installment",
+    "priceFrom": "Prices start from:",
+    "duration": "Trip duration:",
+    "showMore": "Show More"
   }
 }
