@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import SearchSidebar from "./SearchSidebar";
 import { useTranslation } from "react-i18next";
+import Language from "../icons/Language";
 
 const NAV_LINKS = [
   { label: "header.home", href: "#hero" },
@@ -63,10 +64,10 @@ function SearchIcon({ className = "" }: { className?: string }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="11" cy="11" r="9" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="11" cy="11" r="9" stroke="#121212" strokeWidth="1.5" />
       <path
         d="M20 20L22 22"
-        stroke="currentColor"
+        stroke="#121212"
         strokeWidth="1.5"
         strokeLinecap="round"
       />
@@ -152,9 +153,8 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-colors duration-300 ${
-          isScrolled ? "bg-[#F7FAFC] shadow-sm" : "bg-white"
-        }`}
+        className={`sticky top-0 z-50 transition-colors duration-300 ${isScrolled ? "bg-[#F7FAFC] shadow-sm" : "bg-white"
+          }`}
       >
         {/* Desktop Header */}
         <nav className="hidden lg:flex items-center justify-between h-20 container">
@@ -181,11 +181,10 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`relative flex flex-col items-center gap-2 text-lg leading-none transition-colors duration-200 ${
-                    active
-                      ? "font-semibold text-[#0478AF]"
-                      : "font-medium text-[#121212] hover:text-[#0478AF]"
-                  }`}
+                  className={`relative flex flex-col items-center gap-2 text-lg leading-none transition-colors duration-200 ${active
+                    ? "font-semibold text-[#0478AF]"
+                    : "font-medium text-[#121212] hover:text-[#0478AF]"
+                    }`}
                 >
                   {t(link.label)}
                   {active && (
@@ -200,16 +199,16 @@ export default function Header() {
           <div className="flex items-center gap-6">
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center justify-center rounded-full border border-[#0478AF] w-14 h-14 text-[#0478AF] hover:bg-[#0478AF] hover:text-white transition-colors duration-200"
+              className="flex items-center justify-center rounded-full border border-[#D2D1D1] w-14 h-14 text-[#0478AF] hover:bg-[#0478AF] hover:text-white transition-colors duration-200"
               aria-label={t("header.search")}
             >
               <SearchIcon className="w-6 h-6" />
             </button>
             <button
               onClick={toggleLanguage}
-              className="flex items-center justify-center rounded-full border border-[#0478AF] w-14 h-14 text-[#0478AF] hover:bg-[#0478AF] hover:text-white transition-colors duration-200 font-semibold"
+              className="flex items-center justify-center rounded-full border border-[#D2D1D1] w-14 h-14 text-[#0478AF] hover:bg-[#0478AF] hover:text-white transition-colors duration-200 font-semibold"
             >
-              {i18n.language === "ar" ? "EN" : "عربي"}
+              <Language />
             </button>
             <a
               href="#book"
@@ -238,16 +237,10 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center justify-center rounded-full border border-[#0478AF] w-10 h-10 text-[#0478AF]"
+              className="flex items-center justify-center rounded-full border border-[#D2D1D1] w-10 h-10 text-[#0478AF]"
               aria-label={t("header.search")}
             >
               <SearchIcon className="w-5 h-5" />
-            </button>
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center justify-center rounded-full border border-[#0478AF] w-10 h-10 text-[#0478AF] font-bold text-xs"
-            >
-              {i18n.language === "ar" ? "EN" : "ع"}
             </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -272,29 +265,31 @@ export default function Header() {
 
         {/* Mobile Menu Drawer */}
         <div
-          className={`lg:hidden fixed top-[68px] right-0 w-[85vw] max-w-[320px] h-[calc(100vh-68px)] bg-white z-50 shadow-xl transform transition-transform duration-300 ease-in-out ${
-            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+          className={`lg:hidden fixed top-[68px] right-0 w-[85vw] max-w-[320px] h-[calc(100vh-68px)] bg-white z-50 shadow-xl transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+            }`}
         >
-          <div className="flex flex-col py-4 gap-0">
-            {NAV_LINKS.map((link) => {
-              const id = link.href.replace("#", "");
-              const active = activeId === id;
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className={`py-4! px-6! text-[15px] border-b border-gray-50 transition-colors duration-200 ${
-                    active
-                      ? "font-semibold text-[#0478AF] bg-[#ECF7FF] border-[#ECF7FF]"
+          <div className="flex flex-col justify-between h-full">
+            <div className="flex flex-col py-4">
+              {NAV_LINKS.map((link) => {
+                const id = link.href.replace("#", "");
+                const active = activeId === id;
+
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className={`py-2! px-6! text-[15px] border-b border-gray-50 transition-colors duration-200 text-center ${active
+                      ? "font-semibold text-[#0478AF]"
                       : "font-medium text-[#121212] hover:bg-[#F7FAFC]"
-                  }`}
-                >
-                  {t(link.label)}
-                </a>
-              );
-            })}
+                      }`}
+                  >
+                    {t(link.label)}
+                  </a>
+                );
+              })}
+            </div>
+
             <div className="p-6!">
               <a
                 href="#book"
@@ -303,6 +298,16 @@ export default function Header() {
               >
                 {t("header.bookNow")}
               </a>
+
+              <button
+                onClick={toggleLanguage}
+                className="flex items-center justify-center rounded-full border border-[#0478AF] w-full h-12 text-[#00567E] font-bold text-xs mt-4!"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12Z" stroke="#00567E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M12.9999 2.0498C12.9999 2.0498 15.9999 5.9998 15.9999 11.9998C15.9999 17.9998 12.9999 21.9498 12.9999 21.9498M10.9999 21.9498C10.9999 21.9498 7.99988 17.9998 7.99988 11.9998C7.99988 5.9998 10.9999 2.0498 10.9999 2.0498M2.62988 15.4998H21.3699M2.62988 8.4998H21.3699" stroke="#00567E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
