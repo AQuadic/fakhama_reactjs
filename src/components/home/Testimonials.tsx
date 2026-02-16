@@ -91,10 +91,10 @@ export default function Testimonials() {
           <div className="flex flex-col items-end gap-[58px]">
             {/* Section Header */}
             <div className="flex flex-col items-end gap-3 w-full">
-              <span className="text-lg text-right! w-full font-medium text-[#505050]">
+              <span className="text-lg w-full font-medium text-[#505050]">
                 {t("testimonials.title")}
               </span>
-              <h2 className="text-[40px] text-right! w-full font-semibold leading-[1.5] text-[#00567E]">
+              <h2 className="text-[40px] w-full font-semibold leading-[1.5] text-[#00567E]">
                 {t("testimonials.subtitle")}
               </h2>
             </div>
@@ -153,11 +153,10 @@ export default function Testimonials() {
                     <button
                       key={index}
                       onClick={() => handleDotClick(index)}
-                      className={`rounded-full transition-all duration-300 ${
-                        index === activeIndex
-                          ? "w-6 h-2 bg-[#0478AF]"
-                          : "w-2 h-2 bg-[#D2D1D1] hover:bg-[#A0A0A0]"
-                      }`}
+                      className={`rounded-full transition-all duration-300 ${index === activeIndex
+                        ? "w-6 h-2 bg-[#0478AF]"
+                        : "w-2 h-2 bg-[#D2D1D1] hover:bg-[#A0A0A0]"
+                        }`}
                       aria-label={`الشهادة ${index + 1}`}
                     />
                   ))}
