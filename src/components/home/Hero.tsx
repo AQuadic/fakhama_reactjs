@@ -65,10 +65,10 @@ const Hero = () => {
                 </motion.button>
 
                 <motion.div
-                    className="md:block hidden absolute right-76 top-[480px]"
+                    className="md:block hidden absolute rtl:right-76 ltr:left-76 rtl:top-[480px] ltr:top-[550px]"
                     variants={fadeInUp}
                 >
-                    <img src="/images/arrow.svg" alt="arrow" />
+                    <img src="/images/arrow.svg" alt="arrow" className="transform ltr:scale-x-[-1]" />
                 </motion.div>
             </motion.div>
 
