@@ -1,7 +1,9 @@
-import footerLogo from "../../assets/footer-logo.svg";
+import footerLogo from "/images/logo.jpeg";
 import footerMapBg from "../../assets/footer-map-bg-6a9584.png";
 
 import { useTranslation } from "react-i18next";
+import Logo from "../icons/Logo";
+import FooterLogo from "../icons/FooterLogo";
 
 const FOOTER_LINKS = [
   { label: "header.home", href: "#hero" },
@@ -115,12 +117,10 @@ export default function Footer() {
             <div className="flex flex-col items-center gap-12">
               {/* Logo and Description */}
               <div className="flex flex-col items-center">
-                <img
-                  src={footerLogo}
-                  alt="الفخامة للسياحة"
-                  className="w-[180px] h-[180px]"
-                />
-                <p className="text-white text-base font-semibold leading-none text-center max-w-[400px] !text-center">
+                <div>
+                  <Logo />
+                </div>
+                <p className="text-white text-base font-semibold leading-none text-center !text-center">
                   {t("footer.description")}
                 </p>
               </div>
@@ -132,9 +132,8 @@ export default function Footer() {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => handleScrollTo(e, link.href)}
-                    className={`text-xl leading-none text-white transition-opacity hover:opacity-80 ${
-                      link.href === "#hero" ? "font-semibold" : "font-medium"
-                    }`}
+                    className={`text-xl leading-none text-white transition-opacity hover:opacity-80 ${link.href === "#hero" ? "font-semibold" : "font-medium"
+                      }`}
                   >
                     {t(link.label)}
                   </a>
@@ -188,11 +187,9 @@ export default function Footer() {
               <div className="flex flex-col items-center gap-6">
                 {/* Logo + Description */}
                 <div className="flex flex-col items-center gap-0">
-                  <img
-                    src={footerLogo}
-                    alt="الفخامة للسياحة"
-                    className="w-[121px] h-[121px]"
-                  />
+                  <div>
+                    <FooterLogo />
+                  </div>
                   <p className="text-white text-[8px] font-semibold leading-none text-center -mt-4 !text-center">
                     {t("footer.description")}
                   </p>
@@ -205,9 +202,8 @@ export default function Footer() {
                       key={link.href}
                       href={link.href}
                       onClick={(e) => handleScrollTo(e, link.href)}
-                      className={`text-sm leading-none text-white transition-opacity hover:opacity-80 ${
-                        link.href === "#hero" ? "font-semibold" : "font-medium"
-                      }`}
+                      className={`text-sm leading-none text-white transition-opacity hover:opacity-80 ${link.href === "#hero" ? "font-semibold" : "font-medium"
+                        }`}
                     >
                       {t(link.label)}
                     </a>
