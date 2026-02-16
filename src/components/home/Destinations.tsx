@@ -478,9 +478,9 @@ const Destinations: React.FC = () => {
       </div>
       {/* Show More Button */}
       <div className="flex justify-center mt-8! md:mt-12! px-4! md:px-0!">
-        <button className="bg-[#0478AF] text-white font-semibold text-sm md:text-lg px-10! md:px-14! py-2.5! md:py-3! rounded-[50px] cursor-pointer hover:bg-[#0590D0] transition-colors w-full md:w-auto">
-          {t("destinations.showMore")}
-        </button>
+        <Link to='/trip-details' className="bg-[#0478AF] text-white font-semibold text-sm md:text-lg px-10! md:px-14! py-2.5! md:py-3! rounded-[50px] cursor-pointer hover:bg-[#0590D0] transition-colors w-full md:w-auto">
+          {t("header.bookNow")}
+        </Link>
       </div>
     </section>
   );
