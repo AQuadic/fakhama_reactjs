@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import logo from "../../assets/logo.png";
 import SearchSidebar from "./SearchSidebar";
 import { useTranslation } from "react-i18next";
 import Language from "../icons/Language";
+import HeaderLogo from "../icons/HeaderLogo";
+import HeaderMobileLogo from "../icons/HeaderMobileLogo";
 
 const NAV_LINKS = [
   { label: "header.home", href: "#hero" },
@@ -164,11 +165,7 @@ export default function Header() {
             onClick={(e) => handleNavClick(e, "#hero")}
             className="shrink-0"
           >
-            <img
-              src={logo}
-              alt="الفخامة للسياحة"
-              className="w-20 h-20 object-contain"
-            />
+            <HeaderLogo />
           </a>
 
           {/* Center: Navigation Links */}
@@ -227,11 +224,7 @@ export default function Header() {
             onClick={(e) => handleNavClick(e, "#hero")}
             className="shrink-0"
           >
-            <img
-              src={logo}
-              alt="الفخامة للسياحة"
-              className="w-12 h-12 object-contain"
-            />
+            <HeaderMobileLogo />
           </a>
 
           <div className="flex items-center gap-3">

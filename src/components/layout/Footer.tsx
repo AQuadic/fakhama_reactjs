@@ -1,4 +1,3 @@
-import footerLogo from "/images/logo.jpeg";
 import footerMapBg from "../../assets/footer-map-bg-6a9584.png";
 
 import { useTranslation } from "react-i18next";
