@@ -211,8 +211,8 @@ export default function Header() {
               <Language />
             </button>
             <a
-              href="#book"
-              onClick={(e) => handleNavClick(e, "#book")}
+              href="#destinations"
+              onClick={(e) => handleNavClick(e, "#destinations")}
               className="flex items-center justify-center bg-[#0478AF] text-white font-semibold text-lg rounded-full w-[205px] h-14 hover:bg-[#00567E] transition-colors duration-200"
             >
               {t("header.bookNow")}
