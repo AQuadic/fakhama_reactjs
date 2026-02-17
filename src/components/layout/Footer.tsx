@@ -1,8 +1,10 @@
 import footerMapBg from "../../assets/footer-map-bg-6a9584.png";
 
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import Logo from "../icons/Logo";
 import FooterLogo from "../icons/FooterLogo";
+import { getSocialLinks, type SocialLinks } from "../../lib/api/social";
 
 const FOOTER_LINKS = [
   { label: "header.home", href: "#hero" },
@@ -96,6 +98,12 @@ function FacebookIcon() {
 export default function Footer() {
   const { t } = useTranslation();
 
+  const { data: social, isLoading, error } = useQuery<SocialLinks>({
+    queryKey: ["socialLinks"],
+    queryFn: getSocialLinks, 
+    staleTime: 1000 * 60 * 5,
+  });
+
   return (
     <footer className="relative bg-[#0478AF] overflow-hidden pb-8!">
       {/* Background Image (map overlay) */}
@@ -147,107 +155,53 @@ export default function Footer() {
               {t("footer.subscribeTitle")}
             </p>
             <div className="flex items-center gap-4">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity"
-                aria-label="Instagram"
-              >
-                <InstagramIcon />
-              </a>
-              <a
-                href="https://wa.me/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity"
-                aria-label="WhatsApp"
-              >
-                <WhatsAppIcon />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity"
-                aria-label="Facebook"
-              >
-                <FacebookIcon />
-              </a>
+              {!isLoading && social && (
+                <>
+                  <a href={social.instagram_link} target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
+                  <a href={`https://wa.me/${social.whatsapp}`} target="_blank" rel="noopener noreferrer"><WhatsAppIcon /></a>
+                  <a href={social.facebook_link} target="_blank" rel="noopener noreferrer"><FacebookIcon /></a>
+                </>
+              )}
             </div>
           </div>
         </div>
 
         {/* Mobile Footer */}
         <div className="lg:hidden flex flex-col items-center gap-6 container py-6">
-          <div className="flex flex-col items-center gap-8">
-            {/* Logo, Description and Links */}
-            <div className="flex flex-col items-center gap-4">
-              <div className="flex flex-col items-center gap-6">
-                {/* Logo + Description */}
-                <div className="flex flex-col items-center gap-0">
-                  <div>
-                    <FooterLogo />
-                  </div>
-                  <p className="text-white text-[8px] font-semibold leading-none text-center -mt-4 !text-center">
-                    {t("footer.description")}
-                  </p>
-                </div>
+          <FooterLogo />
+          <p className="text-white text-[8px] font-semibold text-center -mt-4">
+            {t("footer.description")}
+          </p>
 
-                {/* Navigation Links - Vertical */}
-                <nav className="flex flex-col items-center gap-4 w-[123px]">
-                  {FOOTER_LINKS.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={(e) => handleScrollTo(e, link.href)}
-                      className={`text-sm leading-none text-white transition-opacity hover:opacity-80 ${link.href === "#hero" ? "font-semibold" : "font-medium"
-                        }`}
-                    >
-                      {t(link.label)}
-                    </a>
-                  ))}
-                </nav>
-              </div>
-            </div>
+          <nav className="flex flex-col items-center gap-4 w-[123px]">
+            {FOOTER_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleScrollTo(e, link.href)}
+                className={`text-sm leading-none text-white hover:opacity-80 transition-opacity ${link.href === "#hero" ? "font-semibold" : "font-medium"}`}
+              >
+                {t(link.label)}
+              </a>
+            ))}
+          </nav>
 
-            {/* Divider */}
-            <div className="w-[292px] h-px bg-[#4D9FC6]" />
+          <div className="w-[292px] h-px bg-[#4D9FC6]" />
 
-            {/* Subscribe Section */}
-            <div className="flex flex-col items-center gap-4 w-[218px]">
-              <p className="text-xs font-medium text-white text-center leading-none !text-center">
-                {t("footer.subscribeTitle")}
-              </p>
-              <div className="flex items-center gap-4">
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:opacity-80 transition-opacity"
-                  aria-label="Instagram"
-                >
-                  <InstagramIcon />
-                </a>
-                <a
-                  href="https://wa.me/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:opacity-80 transition-opacity"
-                  aria-label="WhatsApp"
-                >
-                  <WhatsAppIcon />
-                </a>
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:opacity-80 transition-opacity"
-                  aria-label="Facebook"
-                >
-                  <FacebookIcon />
-                </a>
-              </div>
+          <div className="flex flex-col items-center gap-4 w-[218px]">
+            <p className="text-xs font-medium text-white text-center leading-none">
+              {t("footer.subscribeTitle")}
+            </p>
+            <div className="flex items-center gap-4">
+              {isLoading && <p className="text-white text-xs">Loading...</p>}
+              {error && <p className="text-white text-xs">Failed to load links</p>}
+              {!isLoading && social && (
+                <>
+                  <a href={social.instagram_link} target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
+                  <a href={`https://wa.me/${social.whatsapp}`} target="_blank" rel="noopener noreferrer"><WhatsAppIcon /></a>
+                  <a href={social.facebook_link} target="_blank" rel="noopener noreferrer"><FacebookIcon /></a>
+                </>
+              )}
             </div>
           </div>
         </div>
