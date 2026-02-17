@@ -281,13 +281,13 @@ const Destinations: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
                   {/* Trip Count Badge */}
-                  <div className="w-auto px-2! h-6 md:h-8 bg-[#FEFEFE] rounded-[34px] absolute top-2 md:top-4 right-2 md:right-6 flex items-center justify-center gap-1!">
+                  <div className="w-auto px-2! h-6 md:h-8 bg-[#FEFEFE] rounded-[34px] absolute top-2 md:top-4 right-2 md:right-6 flex items-center justify-center gap-3!">
+                    <div className="w-2 h-2 md:w-3 md:h-3 mb-2!">
+                      <Flag />
+                    </div>
                     <p className="text-dark text-[8px] md:text-base font-semibold leading-[100%]">
                       {dest.tripCount}
                     </p>
-                    <div className="w-3 h-3 md:w-4 md:h-4">
-                      <Flag />
-                    </div>
                   </div>
 
                   {/* Destination Name */}
