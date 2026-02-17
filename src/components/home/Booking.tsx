@@ -6,9 +6,9 @@ import Plane from "../icons/Plane";
 import Whatsapp from "../icons/Whatsapp";
 
 const BOOKING_IMAGES = [
-  "/images/booking.png",
-  "/images/booking.png",
-  "/images/booking.png",
+  "/images/slider1.png",
+  "/images/slider2.png",
+  "/images/slider3.png",
 ];
 
 const Booking = () => {
@@ -123,14 +123,14 @@ const Booking = () => {
             />
           </div>
 
-          <div className="flex justify-center gap-2 mt-4">
+          <div className="md: hidden flex justify-center gap-2 mt-4">
             {BOOKING_IMAGES.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goTo(index)}
                 className={`rounded-full transition-all duration-300 ${index === activeIndex
-                    ? "w-6 h-2 bg-[#0478AF]"
-                    : "w-2 h-2 bg-[#D2D1D1] hover:bg-[#A0A0A0]"
+                  ? "w-6 h-2 bg-[#0478AF]"
+                  : "w-2 h-2 bg-[#D2D1D1] hover:bg-[#A0A0A0]"
                   }`}
                 aria-label={`image ${index + 1}`}
               />
