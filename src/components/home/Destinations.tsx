@@ -234,9 +234,7 @@ const Destinations: React.FC = () => {
           {t("destinations.subtitle")}
         </p>
         <h2 className="text-dark text-lg md:text-[40px] font-semibold leading-[150%]">
-          <span className="text-[#00567E]">
-            {t("destinations.titleStart")}
-          </span>{" "}
+          <span className="text-[#00567E]">{t("destinations.titleStart")}</span>{" "}
           {t("destinations.titleEnd")}{" "}
           <span className="text-[#00567E]">
             {t("destinations.titleHighlight")}
@@ -269,10 +267,11 @@ const Destinations: React.FC = () => {
                 onClick={() => setActiveDestination(index)}
               >
                 <div
-                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-300 w-full h-[119px] md:h-[377px] ${activeDestination === index
-                    ? "border-[3px] md:border-[5px] border-white shadow-[0_0_12px_rgba(0,0,0,0.25)]"
-                    : "border-[3px] md:border-[5px] border-transparent "
-                    }`}
+                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-300 w-full h-[119px] md:h-[377px] ${
+                    activeDestination === index
+                      ? "border-[3px] md:border-[5px] border-white shadow-[0_0_12px_rgba(0,0,0,0.25)]"
+                      : "border-[3px] md:border-[5px] border-transparent "
+                  }`}
                 >
                   <img
                     src={dest.image}
@@ -369,7 +368,7 @@ const Destinations: React.FC = () => {
             >
               {activeTrips.map((trip, idx) => (
                 <SwiperSlide key={`${activeDestination}-${idx}`}>
-                  <Link to='/trip-details' className="w-full">
+                  <Link to="/trip-details" className="w-full">
                     <div className="relative overflow-hidden rounded-[32px] md:rounded-4xl cursor-pointer group">
                       {/* Background Image */}
                       <div
@@ -382,7 +381,7 @@ const Destinations: React.FC = () => {
                         className="absolute inset-0"
                         style={{
                           background:
-                            "linear-gradient(0deg, rgba(0, 0, 0, 1) 28%, rgba(248, 243, 243, 0.5) 100%)",
+                            "linear-gradient(0deg, rgba(0, 0, 0, 0.5) 28.38%, rgba(248, 243, 243, 0.25) 100%)",
                         }}
                       />
 
@@ -400,7 +399,7 @@ const Destinations: React.FC = () => {
 
                       {/* Bottom Content */}
                       <div className="w-full absolute bottom-0 left-0 right-0 p-3! md:p-4! z-10">
-                        <div className="bg-black/15 backdrop-blur-xs rounded-2xl p-3! md:p-4! flex flex-col gap-2.5! md:gap-3!">
+                        <div className=" rounded-2xl p-3! md:p-4! flex flex-col gap-2.5! md:gap-3!">
                           <div className="flex flex-col gap-2! md:gap-3! w-full">
                             <div className="flex flex-col gap-1.5! md:gap-3!">
                               <h3 className="text-[#FEFEFE] text-base md:text-lg font-semibold leading-none">
@@ -478,7 +477,10 @@ const Destinations: React.FC = () => {
       </div>
       {/* Show More Button */}
       <div className="flex justify-center mt-8! md:mt-12! px-4! md:px-0!">
-        <Link to='/trip-details' className="bg-[#0478AF] text-white font-semibold text-sm md:text-lg px-10! md:px-14! py-2.5! md:py-3! rounded-[50px] cursor-pointer hover:bg-[#0590D0] transition-colors w-full md:w-auto flex items-center justify-center">
+        <Link
+          to="/trip-details"
+          className="bg-[#0478AF] text-white font-semibold text-sm md:text-lg px-10! md:px-14! py-2.5! md:py-3! rounded-[50px] cursor-pointer hover:bg-[#0590D0] transition-colors w-full md:w-auto flex items-center justify-center"
+        >
           {t("header.bookNow")}
         </Link>
       </div>
