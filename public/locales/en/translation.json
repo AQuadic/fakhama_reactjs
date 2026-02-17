@@ -106,5 +106,9 @@
     "duration": "Trip duration:",
     "showMore": "Show More",
     "trips": "Trips"
+  },
+  "faq": {
+    "faq": "FAQs",
+    "faq_description": "Find quick answers to common questions about our products, services, and policies."
   }
 }
