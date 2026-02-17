@@ -104,6 +104,7 @@
     "installment": "Easy Installment",
     "priceFrom": "Prices start from:",
     "duration": "Trip duration:",
-    "showMore": "Show More"
+    "showMore": "Show More",
+    "trips": "Trips"
   }
 }

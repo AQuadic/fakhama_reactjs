@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,220 +11,71 @@ import Meal from "../icons/Meal";
 import PlaneSmall from "../icons/PlaneSmall";
 import Wallet from "../icons/Wallet";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query"; // React Query
+import { getTrips, type Trip } from "../../lib/api/trips";
+import { Skeleton } from "../ui/skeleton";
 
-// --- Types ---
-interface Trip {
-  title: string;
-  price: string;
-  duration: string;
-  image: string;
-  features: { label: string; icon: "star" | "meal" | "plane" }[];
-  hasInstallment: boolean;
-}
-
-interface Destination {
-  name: string;
-  image: string;
-  tripCount: string;
-  trips: Trip[];
-}
-
-// --- Feature Icon Renderer ---
-const FeatureIcon: React.FC<{ type: "star" | "meal" | "plane" }> = ({
-  type,
-}) => {
-  switch (type) {
-    case "star":
-      return <Star className="w-4 h-4" />;
-    case "meal":
-      return <Meal className="w-4 h-4" />;
-    case "plane":
-      return <PlaneSmall className="w-4 h-4" />;
-  }
-};
-
-// --- Static Data ---
-const destinations: Destination[] = [
-  // ... (data remains)
-  {
-    name: "مكة المكرمة",
-    image: "/images/makka.jpg",
-    tripCount: "+900 رحلة",
-    trips: [
-      {
-        title: "عمرة رمضان - مكة المكرمة",
-        price: "3,150 د.إ",
-        duration: "3 أيام",
-        image: "/images/trips/trip_card_1.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "وجبة افطار و سحور", icon: "meal" },
-          { label: "طيران دولي", icon: "plane" },
-        ],
-        hasInstallment: true,
-      },
-      {
-        title: "عمرة رجب - مكة المكرمة",
-        price: "2,800 د.إ",
-        duration: "5 أيام",
-        image: "/images/trips/trip_card_2.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "وجبة افطار و سحور", icon: "meal" },
-          { label: "طيران دولي", icon: "plane" },
-        ],
-        hasInstallment: true,
-      },
-      {
-        title: "عمرة شعبان - مكة المكرمة",
-        price: "3,500 د.إ",
-        duration: "4 أيام",
-        image: "/images/trips/trip_card_3.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "وجبة افطار و سحور", icon: "meal" },
-          { label: "طيران دولي", icon: "plane" },
-        ],
-        hasInstallment: true,
-      },
-    ],
-  },
-  {
-    name: "مكة المكرمة",
-    image: "/images/makka.jpg",
-    tripCount: "+900 رحلة",
-    trips: [
-      {
-        title: "عمرة رمضان - مكة المكرمة",
-        price: "3,150 د.إ",
-        duration: "3 أيام",
-        image: "/images/trips/trip_card_1.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "وجبة افطار و سحور", icon: "meal" },
-          { label: "طيران دولي", icon: "plane" },
-        ],
-        hasInstallment: true,
-      },
-      {
-        title: "عمرة رجب - مكة المكرمة",
-        price: "2,800 د.إ",
-        duration: "5 أيام",
-        image: "/images/trips/trip_card_2.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "وجبة افطار و سحور", icon: "meal" },
-          { label: "طيران دولي", icon: "plane" },
-        ],
-        hasInstallment: true,
-      },
-      {
-        title: "عمرة شعبان - مكة المكرمة",
-        price: "3,500 د.إ",
-        duration: "4 أيام",
-        image: "/images/trips/trip_card_3.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "وجبة افطار و سحور", icon: "meal" },
-          { label: "طيران دولي", icon: "plane" },
-        ],
-        hasInstallment: true,
-      },
-    ],
-  },
-  {
-    name: "اسطنبول",
-    image: "/images/istanbul.jpg",
-    tripCount: "+500 رحلة",
-    trips: [
-      {
-        title: "جولة اسطنبول الكلاسيكية",
-        price: "4,200 د.إ",
-        duration: "7 أيام",
-        image: "/images/trips/trip_card_2.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "وجبة افطار و سحور", icon: "meal" },
-          { label: "طيران دولي", icon: "plane" },
-        ],
-        hasInstallment: true,
-      },
-      {
-        title: "اسطنبول العائلية",
-        price: "5,100 د.إ",
-        duration: "10 أيام",
-        image: "/images/trips/trip_card_1.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "وجبة افطار و سحور", icon: "meal" },
-          { label: "طيران دولي", icon: "plane" },
-        ],
-        hasInstallment: true,
-      },
-      {
-        title: "اسطنبول و بورصة",
-        price: "6,000 د.إ",
-        duration: "12 أيام",
-        image: "/images/trips/trip_card_3.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "وجبة افطار و سحور", icon: "meal" },
-          { label: "طيران دولي", icon: "plane" },
-        ],
-        hasInstallment: false,
-      },
-    ],
-  },
-  {
-    name: "دبي",
-    image: "/images/dubai.jpg",
-    tripCount: "+700 رحلة",
-    trips: [
-      {
-        title: "جولة دبي السياحية",
-        price: "2,500 د.إ",
-        duration: "4 أيام",
-        image: "/images/trips/trip_card_3.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "وجبة افطار و سحور", icon: "meal" },
-        ],
-        hasInstallment: true,
-      },
-      {
-        title: "دبي الفاخرة",
-        price: "8,000 د.إ",
-        duration: "5 أيام",
-        image: "/images/trips/trip_card_1.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "طيران دولي", icon: "plane" },
-        ],
-        hasInstallment: true,
-      },
-      {
-        title: "دبي العائلية",
-        price: "5,500 د.إ",
-        duration: "6 أيام",
-        image: "/images/trips/trip_card_2.png",
-        features: [
-          { label: "فندق فاخر", icon: "star" },
-          { label: "وجبة افطار و سحور", icon: "meal" },
-          { label: "طيران دولي", icon: "plane" },
-        ],
-        hasInstallment: false,
-      },
-    ],
-  },
-];
-
-// --- Main Destinations Component ---
 const Destinations: React.FC = () => {
   const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === "rtl";
   const [activeDestination, setActiveDestination] = useState(0);
 
-  const activeTrips = destinations[activeDestination]?.trips ?? [];
-  const isRTL = i18n.dir() === "rtl";
+  const { data: trips = [], isLoading, isError } = useQuery<Trip[]>({
+    queryKey: ["trips"],
+    queryFn: getTrips,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const destinations = useMemo(() => {
+    const grouped = trips.reduce((acc, trip) => {
+      const placeId = trip.place.id;
+      if (!acc[placeId]) {
+        acc[placeId] = {
+          id: placeId,
+          name: trip.place.name,
+          image: trip.place.images?.[0]?.url || trip.image || "/placeholder.jpg",
+          trips: [],
+        };
+      }
+      acc[placeId].trips.push(trip);
+      return acc;
+    }, {} as Record<number, any>);
+
+    return Object.values(grouped);
+  }, [trips]);
+
+  const activeTrips =
+    destinations.length > 0
+      ? destinations[activeDestination]?.trips ?? []
+      : [];
+
+  if (isLoading)
+    return (
+      <div className="flex flex-col gap-6 py-20 px-4 md:px-0">
+        <Skeleton className="h-[20px] w-[150px] rounded-full" />
+        <Skeleton className="h-[40px] w-[300px] md:w-[500px] rounded-lg" />
+
+        <div className="flex gap-4 mt-6 md:mt-12 overflow-x-auto">
+          {[...Array(3)].map((_, i) => (
+            <Skeleton
+              key={i}
+              className="w-[119px] md:w-[377px] h-[119px] md:h-[377px] rounded-[20px] md:rounded-[50px]"
+            />
+          ))}
+        </div>
+
+        <div className="flex gap-4 mt-8 md:mt-12 overflow-x-auto">
+          {[...Array(2)].map((_, i) => (
+            <Skeleton
+              key={i}
+              className="w-[300px] md:w-[500px] h-[430px] md:h-[585px] rounded-[32px] md:rounded-4xl"
+            />
+          ))}
+        </div>
+      </div>
+    );
+  if (isError) return <div className="text-center py-20">Error fetching trips</div>;
+  if (!destinations.length) return <div className="text-center py-20">{t("no_trips") || "No trips available"}</div>;
 
   return (
     <section className="container overflow-hidden md:overflow-visible">
@@ -260,22 +111,21 @@ const Destinations: React.FC = () => {
           }}
           className="!pb-2"
         >
-          {destinations.map((dest, index) => (
-            <SwiperSlide key={index}>
+          {destinations.map((dest: any, index: number) => (
+            <SwiperSlide key={dest.id}>
               <div
                 className="cursor-pointer"
                 onClick={() => setActiveDestination(index)}
               >
                 <div
-                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-300 w-full h-[119px] md:h-[377px] ${
-                    activeDestination === index
-                      ? "border-[3px] md:border-[5px] border-white shadow-[0_0_12px_rgba(0,0,0,0.25)]"
-                      : "border-[3px] md:border-[5px] border-transparent "
-                  }`}
+                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-300 w-full h-[119px] md:h-[377px] ${activeDestination === index
+                    ? "border-[3px] md:border-[5px] border-white shadow-[0_0_12px_rgba(0,0,0,0.25)]"
+                    : "border-[3px] md:border-[5px] border-transparent "
+                    }`}
                 >
                   <img
                     src={dest.image}
-                    alt={dest.name}
+                    alt='trip'
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
@@ -286,13 +136,13 @@ const Destinations: React.FC = () => {
                       <Flag />
                     </div>
                     <p className="text-dark text-[8px] md:text-base font-semibold leading-[100%]">
-                      {dest.tripCount}
+                      {dest.trips.length} {t("destinations.trips")}
                     </p>
                   </div>
 
                   {/* Destination Name */}
                   <div className="w-full h-[22px] md:h-14 bg-[#FFFFFF80] backdrop-blur-sm absolute bottom-0 flex items-center justify-center text-[#FEFEFE] text-sm md:text-[32px] font-semibold">
-                    {dest.name}
+                    {isRTL ? dest.name.ar : dest.name.en}
                   </div>
                 </div>
               </div>
@@ -366,9 +216,9 @@ const Destinations: React.FC = () => {
               }}
               className="px-4! md:px-0!"
             >
-              {activeTrips.map((trip, idx) => (
-                <SwiperSlide key={`${activeDestination}-${idx}`}>
-                  <Link to="/trip-details" className="w-full">
+              {activeTrips.map((trip: Trip) => (
+                <SwiperSlide key={trip.id}>
+                  <Link to={`/trip-details/${trip.id}`}>
                     <div className="relative overflow-hidden rounded-[32px] md:rounded-4xl cursor-pointer group">
                       {/* Background Image */}
                       <div
@@ -384,49 +234,32 @@ const Destinations: React.FC = () => {
                             "linear-gradient(0deg, rgba(0, 0, 0, 0.5) 28.38%, rgba(248, 243, 243, 0.25) 100%)",
                         }}
                       />
-
-                      {/* Installment Badge — top-left */}
-                      {trip.hasInstallment && (
-                        <div className="absolute top-4 md:top-6 left-3 md:left-4 z-10">
-                          <div className="flex flex-row-reverse items-center gap-1! bg-[#FEFEFE] rounded-[28px] px-2! py-1.5! md:py-2!">
-                            <span className="text-dark text-[8px] md:text-xs font-semibold leading-none">
-                              {t("destinations.installment")}
-                            </span>
-                            <Wallet className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                          </div>
+                      <div className="absolute top-4 left-4 z-10">
+                        <div className="flex items-center gap-1 bg-white rounded-full px-3! py-1!">
+                          <span className="text-dark text-xs font-semibold">{t("destinations.installment")}</span>
+                          <Wallet className="w-4 h-4" />
                         </div>
-                      )}
-
-                      {/* Bottom Content */}
-                      <div className="w-full absolute bottom-0 left-0 right-0 p-3! md:p-4! z-10">
-                        <div className=" rounded-2xl p-3! md:p-4! flex flex-col gap-2.5! md:gap-3!">
-                          <div className="flex flex-col gap-2! md:gap-3! w-full">
-                            <div className="flex flex-col gap-1.5! md:gap-3!">
-                              <h3 className="text-[#FEFEFE] text-base md:text-lg font-semibold leading-none">
-                                {trip.title}
-                              </h3>
-                              <p className="text-[#FEFEFE] text-sm md:text-base font-medium leading-none">
-                                أسعار تبدأ من : {trip.price}
-                              </p>
-                              <p className="text-[#FEFEFE] text-sm md:text-base font-medium leading-none">
-                                مدة الرحلة: {trip.duration}
-                              </p>
+                      </div>
+                      <div className="absolute bottom-0 p-4! z-10 w-full">
+                        <h3 className="text-white text-lg font-semibold">{isRTL ? trip.name.ar : trip.name.en}</h3>
+                        <p className="text-white text-sm mt-1!">أسعار تبدأ من : {trip.prices[0]?.price ?? "0"} د.إ</p>
+                        <p className="text-white text-sm">{t("destinations.duration")} {trip.number_of_days} {t("days")}</p>
+                        <div className="flex flex-wrap gap-2 mt-3!">
+                          {trip.hotels.length > 0 && (
+                            <div className="flex items-center gap-1 bg-[#E9E9E9] rounded-full px-2! py-1! text-dark text-xs">
+                              <Star className="w-3 h-3" /> {trip.hotels[0]}
                             </div>
-                            {/* Feature Badges */}
-                            <div className="flex flex-wrap gap-1.5! md:gap-2! w-full">
-                              {trip.features.map((feature, idx) => (
-                                <div
-                                  key={idx}
-                                  className="flex items-center gap-1! bg-[#E9E9E9] rounded-[20px] px-2! py-1!"
-                                >
-                                  <span className="text-dark text-[10px] md:text-[10px] font-medium leading-none">
-                                    {feature.label}
-                                  </span>
-                                  <FeatureIcon type={feature.icon} />
-                                </div>
-                              ))}
+                          )}
+                          {trip.airlines.length > 0 && (
+                            <div className="flex items-center gap-1 bg-[#E9E9E9] rounded-full px-2! py-1! text-dark text-xs">
+                              <PlaneSmall className="w-3 h-3" /> {trip.airlines[0]}
                             </div>
-                          </div>
+                          )}
+                          {trip.airports.length > 0 && (
+                            <div className="flex items-center gap-1 bg-[#E9E9E9] rounded-full px-2! py-1! text-dark text-xs">
+                              <Meal className="w-3 h-3" /> {trip.airports[0]}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
