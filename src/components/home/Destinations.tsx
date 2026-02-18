@@ -258,7 +258,7 @@ const Destinations: React.FC = () => {
                         {/* Background Image */}
                         <div
                           className="w-full h-[430px] md:h-[585px] bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                          style={{ backgroundImage: `url(${trip.image})` }}
+                          style={{ backgroundImage: `url(${trip.image?.url})` }}
                         />
 
                         {/* Gradient Overlay */}

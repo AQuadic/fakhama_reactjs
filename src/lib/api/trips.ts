@@ -5,9 +5,11 @@ export interface TranslatedField {
   en: string;
 }
 
-export interface TripImage {
-  id: number;
+export interface MediaImage {
+  file_name: string;
   url: string;
+  uuid: string;
+  mime_type: string;
   responsive_urls: string[];
 }
 
@@ -15,7 +17,8 @@ export interface Place {
   id: number;
   name: TranslatedField;
   is_active: boolean;
-  images: TripImage[];
+  images: MediaImage[];
+  num_trips?: number;
   created_at: string;
   updated_at: string;
 }
@@ -67,13 +70,23 @@ export interface Trip {
   airports: string[];
   airlines: string[];
   tags: string[];
-  image: string;
+  image: MediaImage;
+  agent_phone: string | null;
+  agent_phone_country: string | null;
+  agent_phone_normalized: string | null;
+  agent_phone_national: string | null;
+  agent_phone_e164: string | null;
+  agent_phone_verified_at: string | null;
   created_at: string;
   updated_at: string;
 }
 
-
 export const getTrips = async (): Promise<Trip[]> => {
   const { data } = await axios.get<Trip[]>("/trips");
+  return data;
+};
+
+export const getTripById = async (id: number): Promise<Trip> => {
+  const { data } = await axios.get<Trip>(`/trips/${id}`);
   return data;
 };

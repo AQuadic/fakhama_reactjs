@@ -8,8 +8,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: "en",
-    lng: "ar", // Default language
+    fallbackLng: "ar",
     debug: import.meta.env.DEV, // Enable debug in development
     interpolation: {
       escapeValue: false, // React already safe from XSS
