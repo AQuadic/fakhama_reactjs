@@ -23,7 +23,11 @@ const Booking = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
+  const [stepDirection, setStepDirection] = useState<"forward" | "backward">("forward");
+
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const autoStepRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const goTo = useCallback(
     (index: number) => {
@@ -44,6 +48,17 @@ const Booking = () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    autoStepRef.current = setInterval(() => {
+      setStepDirection("forward");
+      setActiveStepIndex((prev) => (prev + 1) % steps.length);
+    }, 3000);
+
+    return () => {
+      if (autoStepRef.current) clearInterval(autoStepRef.current);
+    };
+  }, [steps.length]);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -137,31 +152,66 @@ const Booking = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {steps.map((item, index) => {
-            const Icon = icons[index];
+          <div className="hidden md:flex flex-col gap-8">
+            {steps.map((item, index) => {
+              const Icon = icons[index];
+              return (
+                <motion.div
+                  key={index}
+                  className="flex items-center gap-6"
+                  variants={fadeInUp}
+                >
+                  <Icon />
+                  <div>
+                    <h3 className="text-[#121212] md:text-[32px] text-base font-semibold">
+                      <span className="text-[#00567E]">
+                        {item.title.split(" ")[0]}
+                      </span>{" "}
+                      {item.title.split(" ").slice(1).join(" ")}
+                    </h3>
+                    <p className="text-[#505050] md:text-xl text-xs font-medium mt-4">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
 
-            return (
-              <motion.div
-                key={index}
-                className="flex items-center gap-6"
-                variants={fadeInUp}
-              >
-                <Icon />
-                <div>
-                  <h3 className="text-[#121212] md:text-[32px] text-base font-semibold">
-                    <span className="text-[#00567E]">
-                      {item.title.split(" ")[0]}
-                    </span>{" "}
-                    {item.title.split(" ").slice(1).join(" ")}
-                  </h3>
-
-                  <p className="text-[#505050] md:text-xl text-xs font-medium mt-4">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
+          <div className="flex md:hidden flex-col items-center mt-8!">
+            <div className="relative w-full overflow-hidden min-h-[120px]">
+              <AnimatePresence custom={stepDirection} mode="wait">
+                {(() => {
+                  const item = steps[activeStepIndex];
+                  const Icon = icons[activeStepIndex];
+                  return (
+                    <motion.div
+                      key={activeStepIndex}
+                      className="flex items-center gap-6 w-full"
+                      custom={stepDirection}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                    >
+                      <Icon />
+                      <div>
+                        <h3 className="text-[#121212] text-base font-semibold">
+                          <span className="text-[#00567E]">
+                            {item.title.split(" ")[0]}
+                          </span>{" "}
+                          {item.title.split(" ").slice(1).join(" ")}
+                        </h3>
+                        <p className="text-[#505050] text-xs font-medium mt-2">
+                          {item.description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  );
+                })()}
+              </AnimatePresence>
+            </div>
+          </div>
         </motion.div>
 
         <motion.div
