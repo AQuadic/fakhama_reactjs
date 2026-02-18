@@ -35,7 +35,7 @@ export default function SearchSidebar({ isOpen, onClose }: SearchSidebarProps) {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 bg-[#000000B2] z-40"
+                        className="fixed inset-0 bg-[#000000B2] z-50"
                         onClick={closeSearch}
                     />
                 )}

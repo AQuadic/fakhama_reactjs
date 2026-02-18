@@ -54,7 +54,7 @@ const Hero = () => {
 
           <motion.a
             href="#destinations"
-            className=" flex items-center justify-center md:w-[306px] w-full md:h-14 h-12 bg-[#0478AF] rounded-[50px] !mt-6 text-[#FEFEFE] text-lg font-semibold relative z-50"
+            className=" flex items-center justify-center md:w-[306px] w-full md:h-14 h-12 bg-[#0478AF] rounded-[50px] !mt-6 text-[#FEFEFE] text-lg font-semibold relative z-40"
             variants={fadeInUp}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
