@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import type { Trip } from "../../lib/api/trips";
 
 interface BreadcrumbsProps {
   tripName: string;
