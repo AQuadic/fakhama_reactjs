@@ -4,6 +4,7 @@ import type { Trip } from "../../lib/api/trips";
 import { useTripSelection } from "../../lib/useTripSelection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import Price from "../icons/Price";
+import SeatIcon from "../icons/SeatIcon";
 
 interface TripPickerProps {
   trip: Trip;
@@ -49,6 +50,27 @@ const TripPicker = ({ trip }: TripPickerProps) => {
     }
   }, [uniqueAirports, selectedAirportId, setSelectedAirport]);
 
+  // Auto-select hotel if only one
+  useEffect(() => {
+    if (trip.hotels && trip.hotels.length === 1 && !selectedHotel) {
+      setSelectedHotel(trip.hotels[0]);
+    }
+  }, [trip.hotels, selectedHotel, setSelectedHotel]);
+
+  // Auto-select airline if only one
+  useEffect(() => {
+    if (trip.airlines && trip.airlines.length === 1 && !selectedAirline) {
+      setSelectedAirline(trip.airlines[0]);
+    }
+  }, [trip.airlines, selectedAirline, setSelectedAirline]);
+
+  // Auto-select airport name (from trip.airports string list) if only one
+  useEffect(() => {
+    if (trip.airports && trip.airports.length === 1 && !selectedAirportName) {
+      setSelectedAirportName(trip.airports[0]);
+    }
+  }, [trip.airports, selectedAirportName, setSelectedAirportName]);
+
   // Filter flight schedules and prices for selected airport
   const filteredSchedules = useMemo(
     () =>
@@ -65,6 +87,20 @@ const TripPicker = ({ trip }: TripPickerProps) => {
       ),
     [trip.prices, selectedAirportId],
   );
+
+  // Auto-select flight schedule if only one
+  useEffect(() => {
+    if (filteredSchedules.length === 1 && !selectedFlightScheduleId) {
+      setSelectedFlightSchedule(filteredSchedules[0].id);
+    }
+  }, [filteredSchedules, selectedFlightScheduleId, setSelectedFlightSchedule]);
+
+  // Auto-select price if only one
+  useEffect(() => {
+    if (filteredPrices.length === 1 && !selectedPriceId) {
+      setSelectedPrice(filteredPrices[0].id);
+    }
+  }, [filteredPrices, selectedPriceId, setSelectedPrice]);
 
   // Min price for the banner
   const minPrice = useMemo(() => {
@@ -152,7 +188,7 @@ const TripPicker = ({ trip }: TripPickerProps) => {
               <button
                 key={i}
                 onClick={() => setSelectedHotel(hotel)}
-                className={`py-2! px-4! rounded-[20px] text-sm font-medium border transition-all cursor-pointer ${
+                className={`py-2! px-4! rounded-4xl text-sm font-medium border transition-all cursor-pointer ${
                   selectedHotel === hotel
                     ? "bg-[#0478AF] text-white border-[#0478AF]"
                     : "bg-white text-dark border-[#D2D1D1] hover:border-[#0478AF]"
@@ -176,7 +212,7 @@ const TripPicker = ({ trip }: TripPickerProps) => {
               <button
                 key={i}
                 onClick={() => setSelectedAirline(airline)}
-                className={`py-2! px-4! rounded-[20px] text-sm font-medium border transition-all cursor-pointer ${
+                className={`py-2! px-4! rounded-4xl text-sm font-medium border transition-all cursor-pointer ${
                   selectedAirline === airline
                     ? "bg-[#0478AF] text-white border-[#0478AF]"
                     : "bg-white text-dark border-[#D2D1D1] hover:border-[#0478AF]"
@@ -200,7 +236,7 @@ const TripPicker = ({ trip }: TripPickerProps) => {
               <button
                 key={i}
                 onClick={() => setSelectedAirportName(airport)}
-                className={`py-2! px-4! rounded-[20px] text-sm font-medium border transition-all cursor-pointer ${
+                className={`py-2! px-4! rounded-4xl text-sm font-medium border transition-all cursor-pointer ${
                   selectedAirportName === airport
                     ? "bg-[#0478AF] text-white border-[#0478AF]"
                     : "bg-white text-dark border-[#D2D1D1] hover:border-[#0478AF]"
@@ -256,34 +292,59 @@ const TripPicker = ({ trip }: TripPickerProps) => {
                     {filteredSchedules.map((schedule) => (
                       <div
                         key={schedule.id}
-                        className={`flex rtl:flex-row-reverse w-full  rtl:text-right items-center justify-between mb-4! p-3! rounded-lg transition-all cursor-pointer ${
+                        dir={lang === "ar" ? "rtl" : "ltr"}
+                        className={`flex items-center justify-between gap-8.75 mb-3! px-2! py-2! rounded-lg transition-all cursor-pointer ${
                           selectedFlightScheduleId === schedule.id
                             ? "border-2 border-[#0478AF] bg-white"
-                            : "border-2 border-transparent"
+                            : "border-2 border-transparent hover:border-[#D2D1D1]"
                         }`}
                         onClick={() => setSelectedFlightSchedule(schedule.id)}
                       >
-                        <label className="select-none mx-2! text-lg font-medium text-dark cursor-pointer flex-1 text-start rtl:text-end">
-                          <span>
-                            {formatDate(schedule.from_date)} -{" "}
+                        {/* Custom circular checkbox — on the START side (left in LTR, left in RTL) */}
+                        <div
+                          className={`shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                            selectedFlightScheduleId === schedule.id
+                              ? "bg-[#0478AF] border-[#0478AF]"
+                              : "bg-white border-[#D2D1D1]"
+                          }`}
+                        >
+                          {selectedFlightScheduleId === schedule.id && (
+                            <svg
+                              width="12"
+                              height="9"
+                              viewBox="0 0 12 9"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M1 4L4.5 7.5L11 1"
+                                stroke="white"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          )}
+                        </div>
+
+                        {/* Right group: date + seats badge */}
+                        <div className="flex items-center gap-3 flex-1 ltr:flex-row-reverse justify-end">
+                          {/* Orange seats badge */}
+                          {schedule.remaining_seats > 0 && (
+                            <div className="flex items-center gap-1 bg-[#E5800C] rounded-4xl px-2! py-2! shrink-0">
+                              <span className="text-[#FEFEFE] text-xs font-medium leading-none">
+                                {schedule.remaining_seats}{" "}
+                                {t("tripPicker.seatsRemaining")}
+                              </span>
+                              <SeatIcon className="w-4 h-4 text-[#FEFEFE] shrink-0" />
+                            </div>
+                          )}
+                          {/* Date text */}
+                          <span className="text-dark text-lg font-medium leading-none">
+                            {formatDate(schedule.from_date)} –{" "}
                             {formatDate(schedule.to_date)}
                           </span>
-                          {schedule.remaining_seats > 0 && (
-                            <p className="text-gray text-sm mt-1">
-                              {schedule.remaining_seats}{" "}
-                              {t("tripPicker.seatsRemaining")}
-                            </p>
-                          )}
-                        </label>
-                        <input
-                          type="checkbox"
-                          aria-label={`${formatDate(schedule.from_date)} - ${formatDate(schedule.to_date)}`}
-                          checked={selectedFlightScheduleId === schedule.id}
-                          onChange={() =>
-                            setSelectedFlightSchedule(schedule.id)
-                          }
-                          className="w-4 h-4 border rounded-xs focus:ring-0 cursor-pointer"
-                        />
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -306,29 +367,51 @@ const TripPicker = ({ trip }: TripPickerProps) => {
                     {filteredPrices.map((price) => (
                       <div
                         key={price.id}
-                        className={`flex rtl:flex-row-reverse items-center justify-between mb-4! p-3! rounded-lg transition-all cursor-pointer ${
+                        dir={lang === "ar" ? "rtl" : "ltr"}
+                        className={`flex items-center justify-between gap-8.75 mb-3! px-2! py-2! rounded-lg transition-all cursor-pointer ${
                           selectedPriceId === price.id
                             ? "border-2 border-[#0478AF] bg-white"
-                            : "border-2 border-transparent"
+                            : "border-2 border-transparent hover:border-[#D2D1D1]"
                         }`}
                         onClick={() => setSelectedPrice(price.id)}
                       >
-                        <label className="select-none ms-2! text-lg font-medium text-dark cursor-pointer flex-1 rtl:text-right">
-                          {price.name?.[lang] || price.name?.en || ""}
-                          <p className="text-[#00567E] text-base font-medium mt-3!">
+                        {/* Custom circular checkbox */}
+                        <div
+                          className={`shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                            selectedPriceId === price.id
+                              ? "bg-[#0478AF] border-[#0478AF]"
+                              : "bg-white border-[#D2D1D1]"
+                          }`}
+                        >
+                          {selectedPriceId === price.id && (
+                            <svg
+                              width="12"
+                              height="9"
+                              viewBox="0 0 12 9"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M1 4L4.5 7.5L11 1"
+                                stroke="white"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          )}
+                        </div>
+
+                        {/* Right group: price name + price value */}
+                        <div className="flex flex-col items-end flex-1">
+                          <span className="text-dark text-lg font-medium">
+                            {price.name?.[lang] || price.name?.en || ""}
+                          </span>
+                          <span className="text-[#00567E] text-base font-medium mt-1!">
                             {parseFloat(price.price).toLocaleString()}{" "}
                             {t("tripPicker.currency")}
-                          </p>
-                        </label>
-                        <input
-                          type="checkbox"
-                          aria-label={
-                            price.name?.[lang] || price.name?.en || ""
-                          }
-                          checked={selectedPriceId === price.id}
-                          onChange={() => setSelectedPrice(price.id)}
-                          className="w-4 h-4 border rounded-xs focus:ring-0 cursor-pointer"
-                        />
+                          </span>
+                        </div>
                       </div>
                     ))}
                   </div>
