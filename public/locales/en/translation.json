@@ -107,7 +107,13 @@
     "showMore": "Show More",
     "trips": "Trips",
     "prices_start_from": "Prices start from",
-    "days": "days"
+    "days": "days",
+    "no_trips_title": "No trips available",
+    "no_trips_desc": "There are no trips for this destination yet. Check back soon!",
+    "no_places_title": "No destinations yet",
+    "no_places_desc": "We're adding new destinations soon. Check back later!",
+    "error_title": "Something went wrong",
+    "error_desc": "We couldn't load the destinations. Please try again later."
   },
   "faq": {
     "faq": "FAQs",

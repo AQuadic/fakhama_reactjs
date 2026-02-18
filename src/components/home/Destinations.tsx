@@ -15,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTrips, type Trip } from "../../lib/api/trips";
 import { getPlaces, type Place } from "../../lib/api/places";
 import { Skeleton } from "../ui/skeleton";
+import { AlertCircle, MapPin, PlaneTakeoff } from "lucide-react";
 
 const Destinations: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -27,26 +28,31 @@ const Destinations: React.FC = () => {
     staleTime: 5 * 60 * 1000,
   });
 
-  const { data: trips = [], isLoading: tripsLoading, isError } = useQuery<Trip[]>({
+  const {
+    data: trips = [],
+    isLoading: tripsLoading,
+    isError,
+  } = useQuery<Trip[]>({
     queryKey: ["trips"],
     queryFn: getTrips,
     staleTime: 5 * 60 * 1000,
   });
 
   const tripsByPlace = useMemo(() => {
-    const grouped = trips.reduce((acc, trip) => {
-      const placeId = trip.place.id;
-      if (!acc[placeId]) acc[placeId] = [];
-      acc[placeId].push(trip);
-      return acc;
-    }, {} as Record<number, Trip[]>);
+    const grouped = trips.reduce(
+      (acc, trip) => {
+        const placeId = trip.place_id ?? trip.place?.id;
+        if (!acc[placeId]) acc[placeId] = [];
+        acc[placeId].push(trip);
+        return acc;
+      },
+      {} as Record<number, Trip[]>,
+    );
     return grouped;
   }, [trips]);
 
   const activeTrips =
-    places.length > 0
-      ? tripsByPlace[places[activePlaceIndex]?.id] ?? []
-      : [];
+    places.length > 0 ? (tripsByPlace[places[activePlaceIndex]?.id] ?? []) : [];
 
   if (placesLoading || tripsLoading)
     return (
@@ -63,8 +69,39 @@ const Destinations: React.FC = () => {
         </div>
       </div>
     );
-  if (isError) return <div className="text-center py-20">Error fetching trips</div>;
-  if (!places.length) return <div className="text-center py-20">{t("no_trips") || "No trips available"}</div>;
+  if (isError)
+    return (
+      <section className="container">
+        <div className="flex flex-col items-center justify-center py-20 md:py-28 px-4 text-center">
+          <div className="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center mb-5">
+            <AlertCircle className="w-9 h-9 text-red-400" />
+          </div>
+          <h3 className="text-dark text-base md:text-xl font-semibold mb-2">
+            {t("destinations.error_title")}
+          </h3>
+          <p className="text-gray text-sm md:text-base max-w-xs">
+            {t("destinations.error_desc")}
+          </p>
+        </div>
+      </section>
+    );
+
+  if (!places.length)
+    return (
+      <section className="container">
+        <div className="flex flex-col items-center justify-center py-20 md:py-28 px-4 text-center">
+          <div className="w-20 h-20 rounded-full bg-[#EAF5FB] flex items-center justify-center mb-5">
+            <MapPin className="w-9 h-9 text-[#0478AF]" />
+          </div>
+          <h3 className="text-dark text-base md:text-xl font-semibold mb-2">
+            {t("destinations.no_places_title")}
+          </h3>
+          <p className="text-gray text-sm md:text-base max-w-xs">
+            {t("destinations.no_places_desc")}
+          </p>
+        </div>
+      </section>
+    );
 
   return (
     <section className="container overflow-hidden md:overflow-visible">
@@ -107,10 +144,11 @@ const Destinations: React.FC = () => {
                 onClick={() => setActivePlaceIndex(index)}
               >
                 <div
-                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-300 w-full h-[119px] md:h-[377px] ${activePlaceIndex === index
-                    ? "border-[3px] md:border-[5px] border-white shadow-[0_0_12px_rgba(0,0,0,0.25)]"
-                    : "border-[3px] md:border-[5px] border-transparent "
-                    }`}
+                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-300 w-full h-[119px] md:h-[377px] ${
+                    activePlaceIndex === index
+                      ? "border-[3px] md:border-[5px] border-white shadow-[0_0_12px_rgba(0,0,0,0.25)]"
+                      : "border-[3px] md:border-[5px] border-transparent "
+                  }`}
                 >
                   <img
                     src={place.images?.[0]?.url}
@@ -187,69 +225,95 @@ const Destinations: React.FC = () => {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.35 }}
           >
-            <Swiper
-              modules={[Navigation]}
-              slidesPerView={1.33}
-              spaceBetween={16}
-              navigation={{
-                nextEl: ".trips-next",
-                prevEl: ".trips-prev",
-              }}
-              dir={isRTL ? "rtl" : "ltr"}
-              breakpoints={{ 768: { slidesPerView: 3, spaceBetween: 32 } }}
-              className="px-4! md:px-0!"
-            >
-              {activeTrips.map((trip: Trip) => (
-                <SwiperSlide key={trip.id}>
-                  <Link to={`/trip-details/${trip.id}`}>
-                    <div className="relative overflow-hidden rounded-[32px] md:rounded-4xl cursor-pointer group">
-                      {/* Background Image */}
-                      <div
-                        className="w-full h-[430px] md:h-[585px] bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                        style={{ backgroundImage: `url(${trip.image})` }}
-                      />
+            {activeTrips.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16 md:py-24 px-4! text-center">
+                <div className="w-20 h-20 rounded-full bg-[#EAF5FB] flex items-center justify-center mb-5">
+                  <PlaneTakeoff className="w-9 h-9 text-[#0478AF]" />
+                </div>
+                <h3 className="text-dark text-base md:text-xl font-semibold mb-2">
+                  {t("destinations.no_trips_title") || "No trips available"}
+                </h3>
+                <p className="text-gray text-sm md:text-base max-w-xs">
+                  {t("destinations.no_trips_desc") ||
+                    "There are no trips for this destination yet. Check back soon!"}
+                </p>
+              </div>
+            ) : (
+              <Swiper
+                modules={[Navigation]}
+                slidesPerView={1.33}
+                spaceBetween={16}
+                navigation={{
+                  nextEl: ".trips-next",
+                  prevEl: ".trips-prev",
+                }}
+                dir={isRTL ? "rtl" : "ltr"}
+                breakpoints={{ 768: { slidesPerView: 3, spaceBetween: 32 } }}
+                className="px-4! md:px-0!"
+              >
+                {activeTrips.map((trip: Trip) => (
+                  <SwiperSlide key={trip.id}>
+                    <Link to={`/trip-details/${trip.id}`}>
+                      <div className="relative overflow-hidden rounded-[32px] md:rounded-4xl cursor-pointer group">
+                        {/* Background Image */}
+                        <div
+                          className="w-full h-[430px] md:h-[585px] bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                          style={{ backgroundImage: `url(${trip.image})` }}
+                        />
 
-                      {/* Gradient Overlay */}
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          background:
-                            "linear-gradient(0deg, rgba(0, 0, 0, 0.5) 28.38%, rgba(248, 243, 243, 0.25) 100%)",
-                        }}
-                      />
-                      <div className="absolute top-4 left-4 z-10">
-                        <div className="flex items-center gap-1 bg-white rounded-full px-3! py-1!">
-                          <span className="text-dark text-xs font-semibold">{t("destinations.installment")}</span>
-                          <Wallet className="w-4 h-4" />
+                        {/* Gradient Overlay */}
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background:
+                              "linear-gradient(0deg, rgba(0, 0, 0, 0.5) 28.38%, rgba(248, 243, 243, 0.25) 100%)",
+                          }}
+                        />
+                        <div className="absolute top-4 left-4 z-10">
+                          <div className="flex items-center gap-1 bg-white rounded-full px-3! py-1!">
+                            <span className="text-dark text-xs font-semibold">
+                              {t("destinations.installment")}
+                            </span>
+                            <Wallet className="w-4 h-4" />
+                          </div>
+                        </div>
+                        <div className="absolute bottom-0 p-4! z-10 w-full">
+                          <h3 className="text-white text-lg font-semibold">
+                            {isRTL ? trip.name.ar : trip.name.en}
+                          </h3>
+                          <p className="text-white text-sm mt-1!">
+                            {t("destinations.prices_start_from")}{" "}
+                            {trip.prices[0]?.price ?? "0"}
+                          </p>
+                          <p className="text-white text-sm">
+                            {t("destinations.duration")} {trip.number_of_days}{" "}
+                            {t("destinations.days")}
+                          </p>
+                          <div className="flex flex-wrap gap-2 mt-3!">
+                            {trip.hotels.length > 0 && (
+                              <div className="flex items-center gap-1 bg-[#E9E9E9] rounded-full px-2! py-1! text-dark text-xs">
+                                <Star className="w-3 h-3" /> {trip.hotels[0]}
+                              </div>
+                            )}
+                            {trip.airlines.length > 0 && (
+                              <div className="flex items-center gap-1 bg-[#E9E9E9] rounded-full px-2! py-1! text-dark text-xs">
+                                <PlaneSmall className="w-3 h-3" />{" "}
+                                {trip.airlines[0]}
+                              </div>
+                            )}
+                            {trip.airports.length > 0 && (
+                              <div className="flex items-center gap-1 bg-[#E9E9E9] rounded-full px-2! py-1! text-dark text-xs">
+                                <Meal className="w-3 h-3" /> {trip.airports[0]}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
-                      <div className="absolute bottom-0 p-4! z-10 w-full">
-                        <h3 className="text-white text-lg font-semibold">{isRTL ? trip.name.ar : trip.name.en}</h3>
-                        <p className="text-white text-sm mt-1!">{t('destinations.prices_start_from')} {trip.prices[0]?.price ?? "0"}</p>
-                        <p className="text-white text-sm">{t("destinations.duration")} {trip.number_of_days} {t("destinations.days")}</p>
-                        <div className="flex flex-wrap gap-2 mt-3!">
-                          {trip.hotels.length > 0 && (
-                            <div className="flex items-center gap-1 bg-[#E9E9E9] rounded-full px-2! py-1! text-dark text-xs">
-                              <Star className="w-3 h-3" /> {trip.hotels[0]}
-                            </div>
-                          )}
-                          {trip.airlines.length > 0 && (
-                            <div className="flex items-center gap-1 bg-[#E9E9E9] rounded-full px-2! py-1! text-dark text-xs">
-                              <PlaneSmall className="w-3 h-3" /> {trip.airlines[0]}
-                            </div>
-                          )}
-                          {trip.airports.length > 0 && (
-                            <div className="flex items-center gap-1 bg-[#E9E9E9] rounded-full px-2! py-1! text-dark text-xs">
-                              <Meal className="w-3 h-3" /> {trip.airports[0]}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                    </Link>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
           </motion.div>
         </AnimatePresence>
 
