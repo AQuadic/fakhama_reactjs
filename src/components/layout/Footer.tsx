@@ -98,9 +98,13 @@ function FacebookIcon() {
 export default function Footer() {
   const { t } = useTranslation();
 
-  const { data: social, isLoading, error } = useQuery<SocialLinks>({
+  const {
+    data: social,
+    isLoading,
+    error,
+  } = useQuery<SocialLinks>({
     queryKey: ["socialLinks"],
-    queryFn: getSocialLinks, 
+    queryFn: getSocialLinks,
     staleTime: 1000 * 60 * 5,
   });
 
@@ -139,8 +143,9 @@ export default function Footer() {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => handleScrollTo(e, link.href)}
-                    className={`text-xl leading-none text-white transition-opacity hover:opacity-80 ${link.href === "#hero" ? "font-semibold" : "font-medium"
-                      }`}
+                    className={`text-xl leading-none text-white transition-opacity hover:opacity-80 ${
+                      link.href === "#hero" ? "font-semibold" : "font-medium"
+                    }`}
                   >
                     {t(link.label)}
                   </a>
@@ -157,9 +162,27 @@ export default function Footer() {
             <div className="flex items-center gap-4">
               {!isLoading && social && (
                 <>
-                  <a href={social.instagram_link} target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
-                  <a href={`https://wa.me/${social.whatsapp}`} target="_blank" rel="noopener noreferrer"><WhatsAppIcon /></a>
-                  <a href={social.facebook_link} target="_blank" rel="noopener noreferrer"><FacebookIcon /></a>
+                  <a
+                    href={social.instagram_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <InstagramIcon />
+                  </a>
+                  <a
+                    href={`https://wa.me/${social.whatsapp.replace(/^\+/, "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <WhatsAppIcon />
+                  </a>
+                  <a
+                    href={social.facebook_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FacebookIcon />
+                  </a>
                 </>
               )}
             </div>
@@ -194,12 +217,32 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-4">
               {isLoading && <p className="text-white text-xs">Loading...</p>}
-              {error && <p className="text-white text-xs">Failed to load links</p>}
+              {error && (
+                <p className="text-white text-xs">Failed to load links</p>
+              )}
               {!isLoading && social && (
                 <>
-                  <a href={social.instagram_link} target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
-                  <a href={`https://wa.me/${social.whatsapp}`} target="_blank" rel="noopener noreferrer"><WhatsAppIcon /></a>
-                  <a href={social.facebook_link} target="_blank" rel="noopener noreferrer"><FacebookIcon /></a>
+                  <a
+                    href={social.instagram_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <InstagramIcon />
+                  </a>
+                  <a
+                    href={`https://wa.me/${social.whatsapp.replace(/^\+/, "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <WhatsAppIcon />
+                  </a>
+                  <a
+                    href={social.facebook_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FacebookIcon />
+                  </a>
                 </>
               )}
             </div>

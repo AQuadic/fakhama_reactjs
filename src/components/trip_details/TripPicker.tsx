@@ -1,6 +1,8 @@
 import { useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import type { Trip } from "../../lib/api/trips";
+import { getSocialLinks, type SocialLinks } from "../../lib/api/social";
 import { useTripSelection } from "../../lib/useTripSelection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import Price from "../icons/Price";
@@ -13,6 +15,12 @@ interface TripPickerProps {
 const TripPicker = ({ trip }: TripPickerProps) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language as "ar" | "en";
+
+  const { data: social } = useQuery<SocialLinks>({
+    queryKey: ["socialLinks"],
+    queryFn: getSocialLinks,
+    staleTime: Infinity,
+  });
 
   const {
     selectedAirportId,
@@ -125,7 +133,7 @@ const TripPicker = ({ trip }: TripPickerProps) => {
   };
 
   const handleBookNow = () => {
-    if (!trip.agent_phone_e164) return;
+    if (!social?.whatsapp) return;
 
     const tripName = trip.name?.[lang] || trip.name?.en || "";
     const schedule = trip.flight_schedules.find(
@@ -152,10 +160,9 @@ const TripPicker = ({ trip }: TripPickerProps) => {
       );
 
     const message = encodeURIComponent(lines.join("\n"));
-    window.open(
-      `https://wa.me/${trip.agent_phone_e164.replace("+", "")}?text=${message}`,
-      "_blank",
-    );
+    // Strip any leading + from the number since wa.me expects digits only
+    const phone = social.whatsapp.replace(/^\+/, "");
+    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
   };
 
   return (
