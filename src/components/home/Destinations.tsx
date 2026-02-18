@@ -11,50 +11,48 @@ import Meal from "../icons/Meal";
 import PlaneSmall from "../icons/PlaneSmall";
 import Wallet from "../icons/Wallet";
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query"; // React Query
+import { useQuery } from "@tanstack/react-query";
 import { getTrips, type Trip } from "../../lib/api/trips";
+import { getPlaces, type Place } from "../../lib/api/places";
 import { Skeleton } from "../ui/skeleton";
 
 const Destinations: React.FC = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.dir() === "rtl";
-  const [activeDestination, setActiveDestination] = useState(0);
+  const [activePlaceIndex, setActivePlaceIndex] = useState(0);
 
-  const { data: trips = [], isLoading, isError } = useQuery<Trip[]>({
+  const { data: places = [], isLoading: placesLoading } = useQuery<Place[]>({
+    queryKey: ["places"],
+    queryFn: getPlaces,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const { data: trips = [], isLoading: tripsLoading, isError } = useQuery<Trip[]>({
     queryKey: ["trips"],
     queryFn: getTrips,
     staleTime: 5 * 60 * 1000,
   });
 
-  const destinations = useMemo(() => {
+  const tripsByPlace = useMemo(() => {
     const grouped = trips.reduce((acc, trip) => {
       const placeId = trip.place.id;
-      if (!acc[placeId]) {
-        acc[placeId] = {
-          id: placeId,
-          name: trip.place.name,
-          image: trip.place.images?.[0]?.url || trip.image || "/placeholder.jpg",
-          trips: [],
-        };
-      }
-      acc[placeId].trips.push(trip);
+      if (!acc[placeId]) acc[placeId] = [];
+      acc[placeId].push(trip);
       return acc;
-    }, {} as Record<number, any>);
-
-    return Object.values(grouped);
+    }, {} as Record<number, Trip[]>);
+    return grouped;
   }, [trips]);
 
   const activeTrips =
-    destinations.length > 0
-      ? destinations[activeDestination]?.trips ?? []
+    places.length > 0
+      ? tripsByPlace[places[activePlaceIndex]?.id] ?? []
       : [];
 
-  if (isLoading)
+  if (placesLoading || tripsLoading)
     return (
       <div className="flex flex-col gap-6 py-20 px-4 md:px-0">
         <Skeleton className="h-[20px] w-[150px] rounded-full" />
         <Skeleton className="h-[40px] w-[300px] md:w-[500px] rounded-lg" />
-
         <div className="flex gap-4 mt-6 md:mt-12 overflow-x-auto">
           {[...Array(3)].map((_, i) => (
             <Skeleton
@@ -63,19 +61,10 @@ const Destinations: React.FC = () => {
             />
           ))}
         </div>
-
-        <div className="flex gap-4 mt-8 md:mt-12 overflow-x-auto">
-          {[...Array(2)].map((_, i) => (
-            <Skeleton
-              key={i}
-              className="w-[300px] md:w-[500px] h-[430px] md:h-[585px] rounded-[32px] md:rounded-4xl"
-            />
-          ))}
-        </div>
       </div>
     );
   if (isError) return <div className="text-center py-20">Error fetching trips</div>;
-  if (!destinations.length) return <div className="text-center py-20">{t("no_trips") || "No trips available"}</div>;
+  if (!places.length) return <div className="text-center py-20">{t("no_trips") || "No trips available"}</div>;
 
   return (
     <section className="container overflow-hidden md:overflow-visible">
@@ -111,21 +100,21 @@ const Destinations: React.FC = () => {
           }}
           className="!pb-2"
         >
-          {destinations.map((dest: any, index: number) => (
-            <SwiperSlide key={dest.id}>
+          {places.map((place, index) => (
+            <SwiperSlide key={place.id}>
               <div
                 className="cursor-pointer"
-                onClick={() => setActiveDestination(index)}
+                onClick={() => setActivePlaceIndex(index)}
               >
                 <div
-                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-300 w-full h-[119px] md:h-[377px] ${activeDestination === index
+                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-300 w-full h-[119px] md:h-[377px] ${activePlaceIndex === index
                     ? "border-[3px] md:border-[5px] border-white shadow-[0_0_12px_rgba(0,0,0,0.25)]"
                     : "border-[3px] md:border-[5px] border-transparent "
                     }`}
                 >
                   <img
-                    src={dest.image}
-                    alt='trip'
+                    src={place.images?.[0]?.url}
+                    alt="place"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
@@ -136,13 +125,13 @@ const Destinations: React.FC = () => {
                       <Flag />
                     </div>
                     <p className="text-dark text-[8px] md:text-base font-semibold leading-[100%]">
-                      {dest.trips.length} {t("destinations.trips")}
+                      {place.num_trips} {t("destinations.trips")}
                     </p>
                   </div>
 
-                  {/* Destination Name */}
+                  {/* Place Name */}
                   <div className="w-full h-[22px] md:h-14 bg-[#FFFFFF80] backdrop-blur-sm absolute bottom-0 flex items-center justify-center text-[#FEFEFE] text-sm md:text-[32px] font-semibold">
-                    {isRTL ? dest.name.ar : dest.name.en}
+                    {isRTL ? place.name.ar : place.name.en}
                   </div>
                 </div>
               </div>
@@ -192,7 +181,7 @@ const Destinations: React.FC = () => {
       <div className="mt-8! md:mt-12! relative trips-slider">
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeDestination}
+            key={activePlaceIndex}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -207,13 +196,7 @@ const Destinations: React.FC = () => {
                 prevEl: ".trips-prev",
               }}
               dir={isRTL ? "rtl" : "ltr"}
-              key={`${activeDestination}-${isRTL ? "rtl" : "ltr"}`}
-              breakpoints={{
-                768: {
-                  slidesPerView: 3,
-                  spaceBetween: 32,
-                },
-              }}
+              breakpoints={{ 768: { slidesPerView: 3, spaceBetween: 32 } }}
               className="px-4! md:px-0!"
             >
               {activeTrips.map((trip: Trip) => (
@@ -242,8 +225,8 @@ const Destinations: React.FC = () => {
                       </div>
                       <div className="absolute bottom-0 p-4! z-10 w-full">
                         <h3 className="text-white text-lg font-semibold">{isRTL ? trip.name.ar : trip.name.en}</h3>
-                        <p className="text-white text-sm mt-1!">أسعار تبدأ من : {trip.prices[0]?.price ?? "0"} د.إ</p>
-                        <p className="text-white text-sm">{t("destinations.duration")} {trip.number_of_days} {t("days")}</p>
+                        <p className="text-white text-sm mt-1!">{t('destinations.prices_start_from')} {trip.prices[0]?.price ?? "0"}</p>
+                        <p className="text-white text-sm">{t("destinations.duration")} {trip.number_of_days} {t("destinations.days")}</p>
                         <div className="flex flex-wrap gap-2 mt-3!">
                           {trip.hotels.length > 0 && (
                             <div className="flex items-center gap-1 bg-[#E9E9E9] rounded-full px-2! py-1! text-dark text-xs">

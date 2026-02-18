@@ -105,7 +105,9 @@
     "priceFrom": "Prices start from:",
     "duration": "Trip duration:",
     "showMore": "Show More",
-    "trips": "Trips"
+    "trips": "Trips",
+    "prices_start_from": "Prices start from",
+    "days": "days"
   },
   "faq": {
     "faq": "FAQs",
