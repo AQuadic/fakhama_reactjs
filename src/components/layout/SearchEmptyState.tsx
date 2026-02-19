@@ -1,6 +1,9 @@
+import { useTranslation } from "react-i18next";
+
 const SearchEmptyState = () => {
+    const { t } = useTranslation();
     return (
-        <div className='flex flex-col items-center justify-center py-32'>
+        <div className='flex flex-col items-center justify-center py-32!'>
             <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <rect width="300" height="300" fill="url(#pattern0_259_5074)" />
                 <defs>
@@ -11,8 +14,8 @@ const SearchEmptyState = () => {
                 </defs>
             </svg>
 
-            <p className='text-[#121212] text-2xl font-medium mt-10'>
-                لا توجد نتائج مطابقة لبحثك !
+            <p className='text-[#121212] text-2xl font-medium mt-10!'>
+                {t('header.no_result')}
             </p>
         </div>
     )

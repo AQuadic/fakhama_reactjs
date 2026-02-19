@@ -9,7 +9,8 @@
     "bookNow": "Book Now",
     "search": "Search",
     "menuOpen": "Open Menu",
-    "menuClose": "Close Menu"
+    "menuClose": "Close Menu",
+    "no_result": "No results were found matching your search!"
   },
   "footer": {
     "description": "A company specializing in providing the best travel offers and the finest tourism services in the UAE.",
