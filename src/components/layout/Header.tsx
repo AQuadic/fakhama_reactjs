@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import Language from "../icons/Language";
 import HeaderLogo from "../icons/HeaderLogo";
 import HeaderMobileLogo from "../icons/HeaderMobileLogo";
+import { useLocation } from "react-router-dom";
 
 const NAV_LINKS = [
   { label: "header.home", href: "#hero" },
@@ -119,7 +120,8 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
+  const location = useLocation();
+  const isHome = location.pathname === "/";
   const toggleLanguage = () => {
     const newLang = i18n.language === "ar" ? "en" : "ar";
     i18n.changeLanguage(newLang);
@@ -154,7 +156,13 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-colors duration-300 ${isScrolled ? "bg-[#F7FAFC] shadow-sm" : "bg-white"
+        className={`sticky top-0 z-50 transition-colors duration-300 ${isHome
+            ? isScrolled
+              ? "bg-[#F7FAFC] shadow-sm"
+              : "bg-[#F7FAFC]"
+            : isScrolled
+              ? "bg-white shadow-sm"
+              : "bg-transparent"
           }`}
       >
         {/* Desktop Header */}
