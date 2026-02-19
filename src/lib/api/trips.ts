@@ -86,6 +86,11 @@ export const getTrips = async (): Promise<Trip[]> => {
   return data;
 };
 
+export const searchTrips = async (q: string): Promise<Trip[]> => {
+  const { data } = await axios.get<Trip[]>("/trips", { params: { q } });
+  return data;
+};
+
 export const getTripById = async (id: number): Promise<Trip> => {
   const { data } = await axios.get<Trip>(`/trips/${id}`);
   return data;
