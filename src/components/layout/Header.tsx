@@ -66,10 +66,10 @@ function SearchIcon({ className = "" }: { className?: string }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="11" cy="11" r="9" stroke="#121212" strokeWidth="1.5" />
+      <circle cx="11" cy="11" r="9" stroke="currentColor" strokeWidth="1.5" />
       <path
         d="M20 20L22 22"
-        stroke="#121212"
+        stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
       />
@@ -157,12 +157,12 @@ export default function Header() {
     <>
       <header
         className={`sticky top-0 z-50 transition-colors duration-300 ${isHome
-            ? isScrolled
-              ? "bg-[#F7FAFC] shadow-sm"
-              : "bg-[#F7FAFC]"
-            : isScrolled
-              ? "bg-white shadow-sm"
-              : "bg-transparent"
+          ? isScrolled
+            ? "bg-[#F7FAFC] shadow-sm"
+            : "bg-[#F7FAFC]"
+          : isScrolled
+            ? "bg-white shadow-sm"
+            : "bg-transparent"
           }`}
       >
         {/* Desktop Header */}
@@ -204,14 +204,14 @@ export default function Header() {
           <div className="flex items-center gap-6">
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center justify-center rounded-full border border-[#D2D1D1] w-14 h-14 text-[#0478AF] hover:bg-[#0478AF] hover:text-white transition-colors duration-200"
+              className="flex items-center justify-center rounded-full border border-[#D2D1D1] w-14 h-14 text-black hover:bg-[#0478AF] hover:text-white transition-colors duration-200"
               aria-label={t("header.search")}
             >
               <SearchIcon className="w-6 h-6" />
             </button>
             <button
               onClick={toggleLanguage}
-              className="flex items-center justify-center rounded-full border border-[#D2D1D1] w-14 h-14 text-[#0478AF] hover:bg-[#0478AF] hover:text-white transition-colors duration-200 font-semibold"
+              className="flex items-center justify-center rounded-full border border-[#D2D1D1] w-14 h-14 text-black hover:bg-[#0478AF] hover:text-white transition-all duration-200"
             >
               <Language />
             </button>
