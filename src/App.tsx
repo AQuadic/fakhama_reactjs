@@ -5,6 +5,7 @@ import Tripdetails from "./pages/Tripdetails";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import FAQsPage from "./pages/FAQsPage";
+import Trips from "./pages/Trips";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "faqs",
         element: <FAQsPage />,
+      },
+      {
+        path: "trips",
+        element: <Trips />,
       },
     ],
   },
