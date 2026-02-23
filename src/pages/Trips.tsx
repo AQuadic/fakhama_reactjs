@@ -212,7 +212,7 @@ const Trips: React.FC = () => {
                 </button>
             </div>
             {/* Trip Cards Section */}
-            <div id="programs" className="mt-8! md:mt-12! relative trips-slider">
+            <div className="mt-8! md:mt-12! relative trips-slider">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={activePlaceIndex}
