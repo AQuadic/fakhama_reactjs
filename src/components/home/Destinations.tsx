@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
+import type { Swiper as SwiperClass } from "swiper";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -21,6 +22,26 @@ const Destinations: React.FC = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.dir() === "rtl";
   const [activePlaceIndex, setActivePlaceIndex] = useState(0);
+
+  // Destination tabs slider nav state
+  const [destIsBeginning, setDestIsBeginning] = useState(true);
+  const [destIsEnd, setDestIsEnd] = useState(false);
+  const destSwiperRef = useRef<SwiperClass | null>(null);
+
+  // Trip cards slider nav state
+  const [tripsIsBeginning, setTripsIsBeginning] = useState(true);
+  const [tripsIsEnd, setTripsIsEnd] = useState(false);
+  const tripsSwiperRef = useRef<SwiperClass | null>(null);
+
+  const updateDestNav = (swiper: SwiperClass) => {
+    setDestIsBeginning(swiper.isBeginning);
+    setDestIsEnd(swiper.isEnd);
+  };
+
+  const updateTripsNav = (swiper: SwiperClass) => {
+    setTripsIsBeginning(swiper.isBeginning);
+    setTripsIsEnd(swiper.isEnd);
+  };
 
   const { data: places = [], isLoading: placesLoading } = useQuery<Place[]>({
     queryKey: ["places"],
@@ -136,6 +157,11 @@ const Destinations: React.FC = () => {
             },
           }}
           className="!pb-2"
+          onSwiper={(swiper) => {
+            destSwiperRef.current = swiper;
+            updateDestNav(swiper);
+          }}
+          onSlideChange={updateDestNav}
         >
           {places.map((place, index) => (
             <SwiperSlide key={place.id}>
@@ -144,10 +170,11 @@ const Destinations: React.FC = () => {
                 onClick={() => setActivePlaceIndex(index)}
               >
                 <div
-                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-100 w-full h-[119px] md:h-[377px] ${activePlaceIndex === index
-                    ? ""
-                    : "border-[3px] md:border-[5px] border-transparent "
-                    }`}
+                  className={`relative overflow-hidden rounded-[20px] md:rounded-[50px] transition-all duration-100 w-full h-[119px] md:h-[377px] ${
+                    activePlaceIndex === index
+                      ? ""
+                      : "border-[3px] md:border-[5px] border-transparent "
+                  }`}
                 >
                   <img
                     src={place.images?.[0]?.url}
@@ -177,9 +204,16 @@ const Destinations: React.FC = () => {
         </Swiper>
 
         {/* Navigation Arrows - Desktop Only */}
+        {/* Left button = prev: disabled at isBeginning (slide 0) in both LTR and RTL */}
+        {/* In RTL the icon flips to point right (→) because prev moves content rightward visually */}
         <button
-          className="destinations-prev hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full items-center justify-center shadow-lg hover:bg-gray-100 transition-colors -translate-x-5"
+          className={`destinations-prev hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full items-center justify-center shadow-lg transition-colors -translate-x-5 ${
+            destIsBeginning
+              ? "opacity-30 cursor-not-allowed"
+              : "hover:bg-gray-100 cursor-pointer"
+          }`}
           aria-label="Previous destination"
+          disabled={destIsBeginning}
         >
           <svg
             className="w-5 h-5"
@@ -195,9 +229,16 @@ const Destinations: React.FC = () => {
             />
           </svg>
         </button>
+        {/* Right button = next: disabled at isEnd in both LTR and RTL */}
+        {/* In RTL the icon flips to point left (←) because next moves content leftward visually */}
         <button
-          className="destinations-next hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full items-center justify-center shadow-lg hover:bg-gray-100 transition-colors translate-x-5"
+          className={`destinations-next hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full items-center justify-center shadow-lg transition-colors translate-x-5 ${
+            destIsEnd
+              ? "opacity-30 cursor-not-allowed"
+              : "hover:bg-gray-100 cursor-pointer"
+          }`}
           aria-label="Next destination"
+          disabled={destIsEnd}
         >
           <svg
             className="w-5 h-5"
@@ -247,8 +288,14 @@ const Destinations: React.FC = () => {
                   prevEl: ".trips-prev",
                 }}
                 dir={isRTL ? "rtl" : "ltr"}
+                key={`trips-${isRTL ? "rtl" : "ltr"}`}
                 breakpoints={{ 768: { slidesPerView: 3, spaceBetween: 32 } }}
                 className="px-4! md:px-0!"
+                onSwiper={(swiper) => {
+                  tripsSwiperRef.current = swiper;
+                  updateTripsNav(swiper);
+                }}
+                onSlideChange={updateTripsNav}
               >
                 {activeTrips.map((trip: Trip) => (
                   <SwiperSlide key={trip.id}>
@@ -318,8 +365,13 @@ const Destinations: React.FC = () => {
 
         {/* Navigation Arrows - Desktop Only */}
         <button
-          className="trips-prev hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full items-center justify-center shadow-lg hover:bg-gray-100 transition-colors -translate-x-5"
+          className={`trips-prev hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full items-center justify-center shadow-lg transition-colors -translate-x-5 ${
+            tripsIsBeginning
+              ? "opacity-30 cursor-not-allowed"
+              : "hover:bg-gray-100 cursor-pointer"
+          }`}
           aria-label="Previous trip"
+          disabled={tripsIsBeginning}
         >
           <svg
             className="w-5 h-5"
@@ -336,8 +388,13 @@ const Destinations: React.FC = () => {
           </svg>
         </button>
         <button
-          className="trips-next hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full items-center justify-center shadow-lg hover:bg-gray-100 transition-colors translate-x-5"
+          className={`trips-next hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full items-center justify-center shadow-lg transition-colors translate-x-5 ${
+            tripsIsEnd
+              ? "opacity-30 cursor-not-allowed"
+              : "hover:bg-gray-100 cursor-pointer"
+          }`}
           aria-label="Next trip"
+          disabled={tripsIsEnd}
         >
           <svg
             className="w-5 h-5"
