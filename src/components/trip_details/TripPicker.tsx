@@ -37,9 +37,11 @@ const TripPicker = ({ trip }: TripPickerProps) => {
     setSelectedAirportName,
   } = useTripSelection();
 
-  // Extract unique airports from prices
+  // Extract unique airports from BOTH prices and flight_schedules
   const uniqueAirports = useMemo(() => {
     const airportMap = new Map<number, { id: number; name: string }>();
+
+    // From prices
     trip.prices.forEach((p) => {
       if (p.airport && !airportMap.has(p.airport.id)) {
         airportMap.set(p.airport.id, {
@@ -48,8 +50,19 @@ const TripPicker = ({ trip }: TripPickerProps) => {
         });
       }
     });
+
+    // From flight_schedules (may have airports not present in prices)
+    trip.flight_schedules.forEach((fs) => {
+      if (fs.airport && !airportMap.has(fs.airport.id)) {
+        airportMap.set(fs.airport.id, {
+          id: fs.airport.id,
+          name: fs.airport.name?.[lang] || fs.airport.name?.en || "",
+        });
+      }
+    });
+
     return Array.from(airportMap.values());
-  }, [trip.prices, lang]);
+  }, [trip.prices, trip.flight_schedules, lang]);
 
   // Auto-select first airport if none selected
   useEffect(() => {
@@ -168,19 +181,20 @@ const TripPicker = ({ trip }: TripPickerProps) => {
     // Reference key
     const refKey = `h:${hotelId}a:${airportId}p:${placeId}s:${date}r${roomId}c${airCompanyId}`;
 
-    const message = [
+    const messageLines = [
       `Link: ${currentUrl}`,
       `Reference key: ${refKey}`,
-      `Hotel: [${hotelId}] ${hotelName}`,
-      `Airport: [${airportId}] ${airportName}`,
-      `Place: [${placeId}] ${placeName}`,
-      `Date: [${date}] ${date}`,
-      `Room: [${roomId}] ${roomName}`,
-      `Aircompany: [${airCompanyId}] ${airCompanyName}`,
+      hotelName ? `Hotel: [${hotelId}] ${hotelName}` : null,
+      airportName ? `Airport: [${airportId}] ${airportName}` : null,
+      placeName ? `Place: [${placeId}] ${placeName}` : null,
+      date ? `Date: ${date}` : null,
+      roomName ? `Room: [${roomId}] ${roomName}` : null,
+      airCompanyName ? `Aircompany: [${airCompanyId}] ${airCompanyName}` : null,
       ``,
       `*Kindly do not edit this message to ensure your inquiry is sent to the agent`,
-    ].join("\n");
+    ].filter(Boolean);
 
+    const message = messageLines.join("\n");
     // Strip any leading + from the number since wa.me expects digits only
     const phone = social.whatsapp.replace(/^\+/, "");
     window.open(
