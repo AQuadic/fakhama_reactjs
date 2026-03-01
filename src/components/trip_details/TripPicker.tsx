@@ -135,34 +135,58 @@ const TripPicker = ({ trip }: TripPickerProps) => {
   const handleBookNow = () => {
     if (!social?.whatsapp) return;
 
-    const tripName = trip.name?.[lang] || trip.name?.en || "";
+    const currentUrl = window.location.href;
+
+    // Look up selected objects
     const schedule = trip.flight_schedules.find(
       (fs) => fs.id === selectedFlightScheduleId,
     );
     const price = trip.prices.find((p) => p.id === selectedPriceId);
 
-    const lines: string[] = [`${t("tripPicker.whatsappMessage")} ${tripName}`];
-    if (selectedHotel)
-      lines.push(`🏨 ${t("tripDetails.hotelsLabel")}: ${selectedHotel}`);
-    if (selectedAirline)
-      lines.push(`✈️ ${t("tripDetails.airlinesLabel")}: ${selectedAirline}`);
-    if (selectedAirportName)
-      lines.push(
-        `🛫 ${t("tripDetails.airportsLabel")}: ${selectedAirportName}`,
-      );
-    if (schedule)
-      lines.push(
-        `📅 ${t("tripPicker.flightSchedules")}: ${formatDate(schedule.from_date)} - ${formatDate(schedule.to_date)}`,
-      );
-    if (price)
-      lines.push(
-        `💰 ${t("tripPicker.pricesTitle")}: ${price.name?.[lang] || price.name?.en} - ${parseFloat(price.price).toLocaleString()} ${t("tripPicker.currency")}`,
-      );
+    // IDs
+    const hotelIndex = selectedHotel ? trip.hotels.indexOf(selectedHotel) : -1;
+    const hotelId = hotelIndex >= 0 ? hotelIndex + 1 : "";
+    const hotelName = selectedHotel ?? "";
 
-    const message = encodeURIComponent(lines.join("\n"));
+    const airportId = selectedAirportId ?? "";
+    const airportName =
+      uniqueAirports.find((a) => a.id === selectedAirportId)?.name ??
+      selectedAirportName ??
+      "";
+
+    const placeId = trip.place_id ?? "";
+    const placeName = trip.place?.name?.[lang] || trip.place?.name?.en || "";
+
+    const date = schedule?.from_date ?? "";
+
+    const roomId = price?.id ?? "";
+    const roomName = price?.name?.[lang] || price?.name?.en || "";
+
+    const airCompanyId = price?.airline_id ?? "";
+    const airCompanyName = selectedAirline ?? "";
+
+    // Reference key
+    const refKey = `h:${hotelId}a:${airportId}p:${placeId}s:${date}r${roomId}c${airCompanyId}`;
+
+    const message = [
+      `Link: ${currentUrl}`,
+      `Reference key: ${refKey}`,
+      `Hotel: [${hotelId}] ${hotelName}`,
+      `Airport: [${airportId}] ${airportName}`,
+      `Place: [${placeId}] ${placeName}`,
+      `Date: [${date}] ${date}`,
+      `Room: [${roomId}] ${roomName}`,
+      `Aircompany: [${airCompanyId}] ${airCompanyName}`,
+      ``,
+      `*Kindly do not edit this message to ensure your inquiry is sent to the agent`,
+    ].join("\n");
+
     // Strip any leading + from the number since wa.me expects digits only
     const phone = social.whatsapp.replace(/^\+/, "");
-    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+    window.open(
+      `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
+      "_blank",
+    );
   };
 
   return (
