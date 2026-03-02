@@ -6,6 +6,7 @@ import Calender from "../icons/Calender";
 import Location from "../icons/Location";
 import Breadcrumbs from "./Breadcrumbs";
 import TripPicker from "./TripPicker";
+import { Link } from "react-router-dom";
 
 interface TripDetailsHeaderProps {
   trip: Trip;
@@ -31,12 +32,12 @@ const TripDetailsHeader = ({ trip }: TripDetailsHeaderProps) => {
       </div>
 
       {/* Mobile Header */}
-      <div className="md:hidden flex items-center gap-[85px]">
+      <Link to='/' className="md:hidden flex items-center gap-[85px]">
         <BackArrow />
         <p className="text-dark text-xl font-medium">
           {t("tripDetails.mobileTitle")}
         </p>
-      </div>
+      </Link>
 
       <div className="md:mt-12! mt-6! flex flex-wrap justify-between gap-4">
         <div className="flex-1 min-w-0">
