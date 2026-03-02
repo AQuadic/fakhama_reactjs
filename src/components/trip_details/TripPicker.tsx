@@ -156,6 +156,9 @@ const TripPicker = ({ trip }: TripPickerProps) => {
     );
     const price = trip.prices.find((p) => p.id === selectedPriceId);
 
+    const tripId = trip.id ?? "";
+    const tripName = trip.name?.[lang] || trip.name?.en || "";
+
     // IDs
     const hotelIndex = selectedHotel ? trip.hotels.indexOf(selectedHotel) : -1;
     const hotelId = hotelIndex >= 0 ? hotelIndex + 1 : "";
@@ -181,7 +184,7 @@ const TripPicker = ({ trip }: TripPickerProps) => {
     const airCompanyName = selectedAirline ?? "";
 
     // Reference key
-    const refKey = `h:${hotelId}a:${airportId}p:${placeId}s:${date}r${roomId}c${airCompanyId}`;
+    const refKey = `h:${hotelId}a:${airportId}p:${placeId}s:${date}r${roomId}c${airCompanyId}t${tripId}-${tripName}`;
 
     const messageLines = [
       `Link: ${currentUrl}`,
@@ -189,6 +192,7 @@ const TripPicker = ({ trip }: TripPickerProps) => {
       hotelName ? `Hotel: [${hotelId}] ${hotelName}` : null,
       airportName ? `Airport: [${airportId}] ${airportName}` : null,
       placeName ? `Place: [${placeId}] ${placeName}` : null,
+      tripName ? `Trip: [${tripId}] ${tripName}` : null,
       date ? `Date: ${date}` : null,
       roomName ? `Room: [${roomId}] ${roomName}` : null,
       airCompanyName ? `Aircompany: [${airCompanyId}] ${airCompanyName}` : null,
