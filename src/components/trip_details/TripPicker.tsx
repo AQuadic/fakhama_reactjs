@@ -170,7 +170,9 @@ const TripPicker = ({ trip }: TripPickerProps) => {
     const placeId = trip.place_id ?? "";
     const placeName = trip.place?.name?.[lang] || trip.place?.name?.en || "";
 
-    const date = schedule?.from_date ?? "";
+    const date = schedule?.from_date
+      ? schedule.from_date.split("T")[0]
+      : "";
 
     const roomId = price?.id ?? "";
     const roomName = price?.name?.[lang] || price?.name?.en || "";
@@ -233,11 +235,10 @@ const TripPicker = ({ trip }: TripPickerProps) => {
               <button
                 key={i}
                 onClick={() => setSelectedHotel(hotel)}
-                className={`py-2! px-4! rounded-4xl text-sm font-medium border transition-all cursor-pointer ${
-                  selectedHotel === hotel
-                    ? "bg-[#0478AF] text-white border-[#0478AF]"
-                    : "bg-white text-dark border-[#D2D1D1] hover:border-[#0478AF]"
-                }`}
+                className={`py-2! px-4! rounded-4xl text-sm font-medium border transition-all cursor-pointer ${selectedHotel === hotel
+                  ? "bg-[#0478AF] text-white border-[#0478AF]"
+                  : "bg-white text-dark border-[#D2D1D1] hover:border-[#0478AF]"
+                  }`}
               >
                 {hotel}
               </button>
@@ -257,11 +258,10 @@ const TripPicker = ({ trip }: TripPickerProps) => {
               <button
                 key={i}
                 onClick={() => setSelectedAirline(airline)}
-                className={`py-2! px-4! rounded-4xl text-sm font-medium border transition-all cursor-pointer ${
-                  selectedAirline === airline
-                    ? "bg-[#0478AF] text-white border-[#0478AF]"
-                    : "bg-white text-dark border-[#D2D1D1] hover:border-[#0478AF]"
-                }`}
+                className={`py-2! px-4! rounded-4xl text-sm font-medium border transition-all cursor-pointer ${selectedAirline === airline
+                  ? "bg-[#0478AF] text-white border-[#0478AF]"
+                  : "bg-white text-dark border-[#D2D1D1] hover:border-[#0478AF]"
+                  }`}
               >
                 {airline}
               </button>
@@ -281,11 +281,10 @@ const TripPicker = ({ trip }: TripPickerProps) => {
               <button
                 key={i}
                 onClick={() => setSelectedAirportName(airport)}
-                className={`py-2! px-4! rounded-4xl text-sm font-medium border transition-all cursor-pointer ${
-                  selectedAirportName === airport
-                    ? "bg-[#0478AF] text-white border-[#0478AF]"
-                    : "bg-white text-dark border-[#D2D1D1] hover:border-[#0478AF]"
-                }`}
+                className={`py-2! px-4! rounded-4xl text-sm font-medium border transition-all cursor-pointer ${selectedAirportName === airport
+                  ? "bg-[#0478AF] text-white border-[#0478AF]"
+                  : "bg-white text-dark border-[#D2D1D1] hover:border-[#0478AF]"
+                  }`}
               >
                 {airport}
               </button>
@@ -338,20 +337,18 @@ const TripPicker = ({ trip }: TripPickerProps) => {
                       <div
                         key={schedule.id}
                         dir={lang === "ar" ? "rtl" : "ltr"}
-                        className={`flex items-center justify-between gap-8.75 mb-3! px-2! py-2! rounded-lg transition-all cursor-pointer ${
-                          selectedFlightScheduleId === schedule.id
-                            ? "border-2 border-[#0478AF] bg-white"
-                            : "border-2 border-transparent hover:border-[#D2D1D1]"
-                        }`}
+                        className={`flex items-center justify-between gap-8.75 mb-3! px-2! py-2! rounded-lg transition-all cursor-pointer ${selectedFlightScheduleId === schedule.id
+                          ? "border-2 border-[#0478AF] bg-white"
+                          : "border-2 border-transparent hover:border-[#D2D1D1]"
+                          }`}
                         onClick={() => setSelectedFlightSchedule(schedule.id)}
                       >
                         {/* Custom circular checkbox — on the START side (left in LTR, left in RTL) */}
                         <div
-                          className={`shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
-                            selectedFlightScheduleId === schedule.id
-                              ? "bg-[#0478AF] border-[#0478AF]"
-                              : "bg-white border-[#D2D1D1]"
-                          }`}
+                          className={`shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selectedFlightScheduleId === schedule.id
+                            ? "bg-[#0478AF] border-[#0478AF]"
+                            : "bg-white border-[#D2D1D1]"
+                            }`}
                         >
                           {selectedFlightScheduleId === schedule.id && (
                             <svg
@@ -413,20 +410,18 @@ const TripPicker = ({ trip }: TripPickerProps) => {
                       <div
                         key={price.id}
                         dir={lang === "ar" ? "rtl" : "ltr"}
-                        className={`flex items-center justify-between gap-8.75 mb-3! px-2! py-2! rounded-lg transition-all cursor-pointer ${
-                          selectedPriceId === price.id
-                            ? "border-2 border-[#0478AF] bg-white"
-                            : "border-2 border-transparent hover:border-[#D2D1D1]"
-                        }`}
+                        className={`flex items-center justify-between gap-8.75 mb-3! px-2! py-2! rounded-lg transition-all cursor-pointer ${selectedPriceId === price.id
+                          ? "border-2 border-[#0478AF] bg-white"
+                          : "border-2 border-transparent hover:border-[#D2D1D1]"
+                          }`}
                         onClick={() => setSelectedPrice(price.id)}
                       >
                         {/* Custom circular checkbox */}
                         <div
-                          className={`shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
-                            selectedPriceId === price.id
-                              ? "bg-[#0478AF] border-[#0478AF]"
-                              : "bg-white border-[#D2D1D1]"
-                          }`}
+                          className={`shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selectedPriceId === price.id
+                            ? "bg-[#0478AF] border-[#0478AF]"
+                            : "bg-white border-[#D2D1D1]"
+                            }`}
                         >
                           {selectedPriceId === price.id && (
                             <svg
