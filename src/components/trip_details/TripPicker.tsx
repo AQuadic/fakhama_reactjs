@@ -184,7 +184,17 @@ const TripPicker = ({ trip }: TripPickerProps) => {
     const airCompanyName = selectedAirline ?? "";
 
     // Reference key
-    const refKey = `h:${hotelId}a:${airportId}p:${placeId}s:${date}r${roomId}c${airCompanyId}t${tripId}-${tripName}`;
+    const refParts = [
+      hotelId ? `h:${hotelId}` : null,
+      airportId ? `a:${airportId}` : null,
+      placeId ? `p:${placeId}` : null,
+      date ? `s:${date}` : null,
+      roomId ? `r:${roomId}` : null,
+      airCompanyId ? `c:${airCompanyId}` : null,
+      tripId ? `t:${tripId}` : null,
+    ].filter(Boolean);
+
+    const refKey = refParts.join("");
 
     const messageLines = [
       `Link: ${currentUrl}`,
