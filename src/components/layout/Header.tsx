@@ -165,9 +165,8 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-colors duration-300 ${
-          isScrolled ? "bg-[#F7FAFC] shadow-sm" : "bg-white"
-        }`}
+        className={`sticky top-0 z-50 transition-colors duration-300 ${isScrolled ? "bg-[#F7FAFC] shadow-sm" : "bg-white"
+          }`}
       >
         {/* Desktop Header */}
         <nav className="hidden lg:flex items-center justify-between h-20 container">
@@ -176,6 +175,7 @@ export default function Header() {
             href="#hero"
             onClick={(e) => handleNavClick(e, "#hero")}
             className="shrink-0"
+            aria-label="Go to homepage"
           >
             <HeaderLogo />
           </a>
@@ -190,11 +190,10 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`relative flex flex-col items-center gap-2 text-lg leading-none transition-colors duration-200 ${
-                    active
-                      ? "font-semibold text-[#0478AF]"
-                      : "font-medium text-[#121212] hover:text-[#0478AF]"
-                  }`}
+                  className={`relative flex flex-col items-center gap-2 text-lg leading-none transition-colors duration-200 ${active
+                    ? "font-semibold text-[#0478AF]"
+                    : "font-medium text-[#121212] hover:text-[#0478AF]"
+                    }`}
                 >
                   {t(link.label)}
                   {active && (
@@ -236,6 +235,7 @@ export default function Header() {
             href="#hero"
             onClick={(e) => handleNavClick(e, "#hero")}
             className="shrink-0"
+            aria-label="Go to homepage"
           >
             <HeaderMobileLogo />
           </a>
@@ -271,9 +271,8 @@ export default function Header() {
 
         {/* Mobile Menu Drawer */}
         <div
-          className={`lg:hidden fixed top-[68px] right-0 w-[85vw] max-w-[320px] h-[calc(100vh-68px)] bg-white z-50 shadow-xl transform transition-transform duration-300 ease-in-out ${
-            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+          className={`lg:hidden fixed top-[68px] right-0 w-[85vw] max-w-[320px] h-[calc(100vh-68px)] bg-white z-50 shadow-xl transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+            }`}
         >
           <div className="flex flex-col justify-between h-full">
             <div className="flex flex-col py-4">
@@ -286,11 +285,10 @@ export default function Header() {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`py-2! px-6! text-[15px] border-b border-gray-50 transition-colors duration-200 text-center ${
-                      active
-                        ? "font-semibold text-[#0478AF]"
-                        : "font-medium text-[#121212] hover:bg-[#F7FAFC]"
-                    }`}
+                    className={`py-2! px-6! text-[15px] border-b border-gray-50 transition-colors duration-200 text-center ${active
+                      ? "font-semibold text-[#0478AF]"
+                      : "font-medium text-[#121212] hover:bg-[#F7FAFC]"
+                      }`}
                   >
                     {t(link.label)}
                   </a>

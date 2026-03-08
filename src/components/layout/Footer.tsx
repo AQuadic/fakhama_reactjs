@@ -177,6 +177,7 @@ export default function Footer() {
                     href={social.instagram_link}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Visit our Instagram"
                   >
                     <InstagramIcon />
                   </a>
@@ -184,6 +185,7 @@ export default function Footer() {
                     href={`https://wa.me/${social.whatsapp.replace(/^\+/, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Chat with us on WhatsApp"
                   >
                     <WhatsAppIcon />
                   </a>
@@ -191,6 +193,7 @@ export default function Footer() {
                     href={social.facebook_link}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Visit our Facebook"
                   >
                     <FacebookIcon />
                   </a>

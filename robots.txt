@@ -1,0 +1,12 @@
+# robots.txt for Tajj Travel
+
+User-agent: *
+Allow: /
+
+Disallow: /checkout
+Disallow: /cart
+Disallow: /signin
+Disallow: /signup
+Disallow: /admin
+
+Sitemap: https://tajj.xyz/sitemap.xml
