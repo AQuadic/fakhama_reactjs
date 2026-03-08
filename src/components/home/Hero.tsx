@@ -25,9 +25,13 @@ const Hero = () => {
     <section className="md:!py-12 py-8 bg-[#F7FAFC]">
       <div className="relative container flex flex-wrap items-center gap-8">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-20 z-10"
-          style={{ backgroundImage: "url('/images/world.png')" }}
-        ></div>
+          className="absolute inset-0 z-10">
+          <img
+            src="/images/world.png"
+            alt=""
+            className="w-full h-full object-cover opacity-20"
+          />
+        </div>
 
         {/* Left content */}
         <motion.div
@@ -69,7 +73,7 @@ const Hero = () => {
             <img
               src="/images/arrow.svg"
               alt="arrow"
-              className="transform ltr:scale-x-[-1]"
+              className="w-full h-full transform ltr:scale-x-[-1]"
             />
           </motion.div>
         </motion.div>
