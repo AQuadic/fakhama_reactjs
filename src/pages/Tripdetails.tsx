@@ -32,14 +32,14 @@ const Tripdetails = () => {
     return (
       <div className="container py-8!">
         <Skeleton className="h-6 w-48 rounded-full mb-8" />
-        <div className="flex flex-wrap justify-between gap-4">
+        <div className="flex flex-wrap justify-between gap-4 mt-2!">
           <div className="flex-1">
-            <Skeleton className="w-full max-w-[789px] h-[427px] rounded-[32px]" />
-            <Skeleton className="h-10 w-64 mt-8 rounded-lg" />
-            <Skeleton className="h-6 w-40 mt-3 rounded-full" />
-            <Skeleton className="h-24 w-full max-w-[730px] mt-8 rounded-lg" />
+            <Skeleton className="w-full max-w-[789px] h-[427px] rounded-[32px] mt-2!" />
+            <Skeleton className="h-10 w-64 mt-8 rounded-lg mt-2!" />
+            <Skeleton className="h-6 w-40 mt-3 rounded-full mt-2!" />
+            <Skeleton className="h-24 w-full max-w-[730px] mt-8 rounded-lg mt-2!" />
           </div>
-          <Skeleton className="w-[379px] h-[500px] rounded-[32px]" />
+          <Skeleton className="w-[379px] h-[500px] rounded-[32px] mt-2!" />
         </div>
       </div>
     );
