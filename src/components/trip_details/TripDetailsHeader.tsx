@@ -7,6 +7,9 @@ import Location from "../icons/Location";
 import Breadcrumbs from "./Breadcrumbs";
 import TripPicker from "./TripPicker";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
 
 interface TripDetailsHeaderProps {
   trip: Trip;
@@ -42,12 +45,27 @@ const TripDetailsHeader = ({ trip }: TripDetailsHeaderProps) => {
       <div className="md:mt-12! mt-6! flex flex-wrap justify-between gap-4">
         <div className="flex-1 min-w-0">
           {/* Trip Image */}
-          {trip.landscape_images?.[0]?.url ? (
-            <img
-              src={trip.landscape_images[0].responsive_urls?.[0] || trip.landscape_images[0].url}
-              className="md:w-[789px] w-full md:h-[427px] h-[220px] rounded-[32px] object-cover"
-              alt={tripName}
-            />
+          {trip.landscape_images && trip.landscape_images.length > 0 ? (
+            <Swiper
+              modules={[Autoplay]}
+              slidesPerView={1}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              loop={true}
+              className="md:w-[789px] w-full md:h-[427px] h-[220px] rounded-[32px] overflow-hidden"
+            >
+              {trip.landscape_images.map((img, index) => (
+                <SwiperSlide key={index}>
+                  <img
+                    src={img.responsive_urls?.[0] || img.url}
+                    alt={tripName}
+                    className="w-full h-full object-cover"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           ) : imageUrl ? (
             <img
               src={imageUrl}
