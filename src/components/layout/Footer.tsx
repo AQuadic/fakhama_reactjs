@@ -5,7 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import Logo from "../icons/Logo";
 import FooterLogo from "../icons/FooterLogo";
 import { getSocialLinks, type SocialLinks } from "../../lib/api/social";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { getPages, type Page } from "../../lib/api/pages";
 
 const FOOTER_LINKS = [
   { label: "header.home", href: "#hero" },
@@ -86,13 +87,13 @@ function FacebookIcon() {
 }
 
 export default function Footer() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 
   function handleScrollTo(
     e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
+    href: string,
   ) {
     e.preventDefault();
     const id = href.replace("#", "");
@@ -118,6 +119,11 @@ export default function Footer() {
     queryKey: ["socialLinks"],
     queryFn: getSocialLinks,
     staleTime: 1000 * 60 * 5,
+  });
+
+  const { data: pages = [] } = useQuery<Page[]>({
+    queryKey: ["pages"],
+    queryFn: getPages,
   });
 
   return (
@@ -148,20 +154,38 @@ export default function Footer() {
                 </p>
               </div>
 
-              {/* Navigation Links */}
-              <nav className="flex items-center justify-center gap-10 flex-wrap">
-                {FOOTER_LINKS.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => handleScrollTo(e, link.href)}
-                    className={`text-xl leading-none text-white transition-opacity hover:opacity-80 ${link.href === "#hero" ? "font-semibold" : "font-medium"
+              {/* Navigation Links & Dynamic Pages */}
+              <div className="flex flex-col items-center gap-6">
+                <nav className="flex items-center justify-center gap-10 flex-wrap">
+                  {FOOTER_LINKS.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={(e) => handleScrollTo(e, link.href)}
+                      className={`text-xl leading-none text-white transition-opacity hover:opacity-80 ${
+                        link.href === "#hero" ? "font-semibold" : "font-medium"
                       }`}
-                  >
-                    {t(link.label)}
-                  </a>
-                ))}
-              </nav>
+                    >
+                      {t(link.label)}
+                    </a>
+                  ))}
+                </nav>
+
+                {pages.length > 0 && (
+                  <nav className="flex items-center justify-center gap-8 flex-wrap">
+                    {pages.map((page) => (
+                      <Link
+                        key={page.id}
+                        to={`/page/${page.id}`}
+                        className="text-lg leading-none text-white transition-opacity hover:opacity-80 font-medium"
+                      >
+                        {page.title[i18n.language as "en" | "ar"] ||
+                          page.title.en}
+                      </Link>
+                    ))}
+                  </nav>
+                )}
+              </div>
             </div>
           </div>
 
@@ -210,18 +234,34 @@ export default function Footer() {
             {t("footer.description")}
           </p>
 
-          <nav className="flex flex-col items-center gap-4 w-[123px]">
-            {FOOTER_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleScrollTo(e, link.href)}
-                className={`text-sm leading-none text-white hover:opacity-80 transition-opacity ${link.href === "#hero" ? "font-semibold" : "font-medium"}`}
-              >
-                {t(link.label)}
-              </a>
-            ))}
-          </nav>
+          <div className="flex flex-col items-center gap-6">
+            <nav className="flex flex-col items-center gap-4 w-[123px]">
+              {FOOTER_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleScrollTo(e, link.href)}
+                  className={`text-sm leading-none text-white hover:opacity-80 transition-opacity ${link.href === "#hero" ? "font-semibold" : "font-medium"}`}
+                >
+                  {t(link.label)}
+                </a>
+              ))}
+            </nav>
+
+            {pages.length > 0 && (
+              <nav className="flex flex-col items-center gap-4 w-[123px]">
+                {pages.map((page) => (
+                  <Link
+                    key={page.id}
+                    to={`/page/${page.id}`}
+                    className="text-sm leading-none text-white hover:opacity-80 transition-opacity font-medium"
+                  >
+                    {page.title[i18n.language as "en" | "ar"] || page.title.en}
+                  </Link>
+                ))}
+              </nav>
+            )}
+          </div>
 
           <div className="w-[292px] h-px bg-[#4D9FC6]" />
 

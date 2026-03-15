@@ -5,6 +5,7 @@ import Tripdetails from "./pages/Tripdetails";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import Trips from "./pages/Trips";
+import PageDetail from "./pages/PageDetail";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         path: "trips",
         element: <Trips />,
       },
+      {
+        path: "page/:id",
+        element: <PageDetail />,
+      },
     ],
   },
 ]);
@@ -34,7 +39,7 @@ function App() {
     const dir = i18n.dir(i18n.language);
     document.documentElement.dir = dir;
     document.documentElement.lang = i18n.language;
-  }, [i18n.language]);
+  }, [i18n, i18n.language]);
 
   return <RouterProvider router={router} />;
 }
